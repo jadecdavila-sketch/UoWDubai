@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { deskData } from '../deskData.js'
 import Drawer from './Drawer.jsx'
+import SeatTile from './SeatTile.jsx'
 
 // The settle plays on the first arrival only; later visits find the desk already set.
 let deskSettled = false
+// Once the drawer has opened it stays open across visits.
+let drawerOpened = false
 
 function TrayItem({ item, onAction }) {
   return (
@@ -25,7 +28,7 @@ function DeskBell({ struck }) {
     <>
       {!roomOpen && (
         <button className="fab" onClick={() => setRoomOpen(true)}>
-          <span className="tiles"><span className="tile t-terra">SE</span><span className="tile t-sage">LS</span><span className="tile t-gold">DC</span></span>
+          <span className="tiles"><SeatTile t="SE" /><SeatTile t="LS" /><SeatTile t="DC" /></span>
           <span>Convene the room</span>
         </button>
       )}
@@ -36,6 +39,8 @@ function DeskBell({ struck }) {
         ledgerOpen={ledgerOpen}
         toggleLedger={() => setLedgerOpen(o => !o)}
         subtitle="seated for MGMT110"
+        tabs={['meet', 'conv']}
+        initialTab="meet"
       />
     </>
   )
@@ -46,9 +51,43 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
   const [courseName, setCourseName] = useState('')
   const [seated, setSeated] = useState(false)
   const [withBeats] = useState(() => !deskSettled)
+  // The drawer opens as the reader scrolls it up the viewport, or on reaching the foot of the page
+  const [drawerRevealed, setDrawerRevealed] = useState(() => drawerOpened)
+  const stackRef = useRef(null)
 
   useEffect(() => {
     deskSettled = true
+  }, [])
+
+  useEffect(() => {
+    if (drawerRevealed) return
+    const el = stackRef.current
+    if (!el) return
+
+    function reveal() {
+      drawerOpened = true
+      setDrawerRevealed(true)
+      window.removeEventListener('scroll', check)
+      window.removeEventListener('resize', check)
+    }
+    function check() {
+      const line = window.innerHeight * 0.88
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8
+      if (el.getBoundingClientRect().top < line || atBottom) reveal()
+    }
+
+    // No scroll room means no scroll gesture to wait for; the drawer simply stands open.
+    if (document.documentElement.scrollHeight <= window.innerHeight + 40) {
+      reveal()
+      return
+    }
+    window.addEventListener('scroll', check, { passive: true })
+    window.addEventListener('resize', check)
+    return () => {
+      window.removeEventListener('scroll', check)
+      window.removeEventListener('resize', check)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const beat = n => {
@@ -73,7 +112,7 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
           {seated ? (
             <>
               <div className="seatcard fade-in" style={{ marginTop: 34 }}>
-                <span className="tile t-terra">SE</span>
+                <SeatTile t="SE" />
                 <div>
                   <b className="serif">A Management mind holds the craft seat.</b>
                   <span className="sc-body">The room is seated around {courseName}. Six more seats and the chair take theirs alongside it.</span>
@@ -159,10 +198,25 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
 
         <section className={'sec-quiet last' + beat(4)}>
           <div className="d-seclabel">The drawer</div>
-          <button className="drawer-row" onClick={onOpenRecord}>
+          <div className="drawer-row">
             <span className="gmark"><span className="seal-mini">✓</span></span>
             <span>{d.drawer.line}</span>
-          </button>
+          </div>
+          <div className={'drawer-stack' + (drawerRevealed ? ' open' : '')} ref={stackRef}>
+            {d.drawer.decks.map((deck, i) => (
+              <button
+                className="deck-row"
+                key={deck.week}
+                onClick={i === 0 ? onOpenRecord : () => alert('In the product, the drawer opens any signed master: its record, its trace, and every strike recorded as yours.')}
+              >
+                <span className="gmark"><span className="seal-mini">✓</span></span>
+                <span className="dk-main">
+                  <span className="dk-name serif">Week {deck.week} &middot; {deck.title}</span>
+                  <span className="dk-meta">{deck.file} &middot; {deck.meta}</span>
+                </span>
+              </button>
+            ))}
+          </div>
         </section>
       </div>
 

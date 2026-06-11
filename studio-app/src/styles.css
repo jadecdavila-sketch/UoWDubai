@@ -122,8 +122,8 @@
     border-bottom:1px solid rgba(40,35,27,0.05);
   }
   .log-line.show{opacity:1;transform:translateY(0);}
-  .log-line .l-avatar{flex:none;width:26px;align-self:flex-start;margin-top:-1px;}
-  .log-line .l-tile{width:26px;height:26px;font-size:11px;border-radius:6px;}
+  .log-line .l-avatar{flex:none;width:48px;align-self:flex-start;margin-top:-1px;}
+  .log-line .l-tile{width:48px;height:48px;font-size:15px;border-radius:8px;}
   .log-line .l-seat{
     flex:none;width:138px;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;
   }
@@ -340,6 +340,9 @@
   .t-terra{background:rgba(116,33,26,0.26);}
   .t-sage{background:rgba(140,124,88,0.32);}
   .t-gold{background:rgba(176,141,79,0.34);}
+  /* persona portraits fill the avatar, clipped to its rounded shape */
+  .tile,.mtile{overflow:hidden;}
+  .tile img,.mtile img{width:100%;height:100%;object-fit:cover;display:block;}
   .fab .tile{color:var(--paper);border-color:rgba(246,241,230,0.35);}
   .fab .t-terra{background:var(--terracotta);}
   .fab .t-sage{background:var(--sage-deep);}
@@ -383,7 +386,7 @@
   .meet-card{
     border:1px solid var(--line);background:var(--card);padding:15px 16px;display:flex;gap:13px;align-items:flex-start;
   }
-  .meet-card .tile{width:38px;height:38px;font-size:14px;margin-top:2px;}
+  .meet-card .tile{width:66px;height:66px;font-size:20px;margin-top:2px;}
   .meet-card b{display:block;font-size:17px;font-weight:600;line-height:1.2;}
   .meet-card i{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--terracotta-deep);margin-top:1px;}
   .meet-card span{display:block;font-size:12px;color:var(--ink-soft);margin-top:5px;line-height:1.55;}
@@ -480,7 +483,7 @@
     align-items:flex-start;margin-top:10px;
   }
   .seatcard.counter{border-left:3px solid var(--terracotta);}
-  .seatcard .tile{width:42px;height:42px;font-size:15px;margin-top:2px;flex:none;}
+  .seatcard .tile{width:78px;height:78px;font-size:22px;margin-top:2px;flex:none;}
   .seatcard b{font-size:18px;font-weight:600;}
   .seatcard i{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--terracotta-deep);margin-left:4px;}
   .sc-body{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.6;}
@@ -594,14 +597,16 @@
 
   /* ===== mini voice tiles ===== */
   .mtile{
-    width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;
-    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:10.5px;color:var(--ink);
+    width:46px;height:46px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:16px;color:var(--ink);
     border:1px solid rgba(40,35,27,0.18);flex:none;letter-spacing:0.02em;
   }
+  /* the presiding chair on The Table reads larger than the seats it convenes */
+  .mtile.chair-lg{width:66px;height:66px;border-radius:9px;font-size:20px;}
   .plate .who,.rlabel,.ru-label,.cc-label{display:flex;align-items:center;gap:8px;}
   .bubble .b-who{display:flex;align-items:center;gap:9px;margin-bottom:6px;}
   .bc-head{display:flex;gap:13px;align-items:center;}
-  .bc-head .tile{width:46px;height:46px;font-size:16px;}
+  .bc-head .tile{width:78px;height:78px;font-size:22px;}
 
   /* ===== student lens hierarchy ===== */
   .lens-tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
@@ -763,3 +768,21 @@
   }
   .script .editable-line:hover{background:rgba(23,49,90,0.05);}
   .script .editable-line:focus-visible{outline:2px solid var(--navy);outline-offset:1px;}
+
+  /* ===== the drawer: contents in view, opening on approach ===== */
+  .drawer-stack{margin-top:6px;max-height:96px;overflow:hidden;transition:max-height .8s cubic-bezier(.2,.7,.2,1);}
+  .drawer-stack.open{max-height:420px;}
+  .deck-row{
+    display:grid;grid-template-columns:30px 1fr;align-items:flex-start;width:100%;text-align:left;
+    background:none;border:none;padding:9px 0;transition:opacity .6s ease;
+  }
+  .deck-row .seal-mini{width:18px;height:18px;font-size:10px;margin-top:3px;}
+  .dk-name{display:block;font-size:16px;font-weight:600;color:var(--ink);line-height:1.35;}
+  .deck-row:hover .dk-name{color:var(--navy);}
+  .dk-meta{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:0.03em;color:var(--ink-soft);margin-top:2px;}
+  .drawer-stack:not(.open) .deck-row:nth-child(2){
+    opacity:.8;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 88%);
+    mask-image:linear-gradient(to bottom,#000 0%,transparent 88%);
+  }
+  .drawer-stack:not(.open) .deck-row:nth-child(n+3){opacity:0;}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import SeatTile from './SeatTile.jsx'
-import { SEATS } from '../seats.js'
+import { SEAT_BY_NAME } from '../seats.js'
 
 const LOG = [
   {
@@ -95,7 +95,7 @@ const LOG = [
 
 function LogEntry({ entry, shown }) {
   const [open, setOpen] = useState(false)
-  const seat = SEATS[entry.seat]
+  const seat = SEAT_BY_NAME[entry.seat]
   return (
     <div className="log-entry">
       <div className={'log-line' + (shown ? ' show' : '')}>

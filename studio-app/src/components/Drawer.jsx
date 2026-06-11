@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { briefs, seatChips } from '../data.js'
+import SeatTile from './SeatTile.jsx'
 
 const DTABS = [
   ['meet', 'Meet the Room'],
@@ -34,7 +35,8 @@ const CONV_ANSWERS = {
   },
 }
 
-export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger, initialTab = 'table', subtitle = 'Chunk 3 · Escalation of Commitment' }) {
+export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger, initialTab = 'table', subtitle = 'Chunk 3 · Escalation of Commitment', tabs }) {
+  const visibleTabs = tabs ? DTABS.filter(([key]) => tabs.includes(key)) : DTABS
   const [tab, setTab] = useState(initialTab)
   const [seat, setSeat] = useState('subject')
   const [asked, setAsked] = useState([])
@@ -58,7 +60,7 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
       <div className="drawer-head">
         <div className="dh-title">THE ROOM <span>&middot; {subtitle}</span></div>
         <div className="dtabs" role="tablist">
-          {DTABS.map(([key, label]) => (
+          {visibleTabs.map(([key, label]) => (
             <button className="dtab" key={key} aria-selected={tab === key} onClick={() => setTab(key)}>{label}</button>
           ))}
         </div>
@@ -73,21 +75,21 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
           <div className="vsline serif">The drafters propose. The reviewers return named gaps. And one seat is paid to lean against the room's own caution, because a panel of careful disciplines converges on the careful, forgettable lecture every single time.</div>
 
           <div className="d-seclabel">The drafting seats &middot; they propose</div>
-          <div className="seatcard"><span className="tile t-terra">SE</span><div><b className="serif">The Subject Expert</b><i>the craft seat &middot; composed per discipline &middot; Management holds it first</i><p className="mc-quote serif">“In management, the concept and the case teach each other, and neither teaches alone.”</p><span className="sc-body">Reads your deck as the data room, proposes the chunking around the week's hinge concept, and drafts the teaching the way the discipline gets to excellent: the dilemma, the case, the framework meeting Monday morning. A Biologist or a Mathematician will hold this seat differently, later.</span><span className="sc-hand">Hands up: the chunks, their draft invariants, and every addition flagged before it is attached.</span><span className="card-tools"><i className="tl">deck-parser</i><i className="tl">chunk-composer</i><i className="tl">case-builder</i><i className="tl">framework-finder</i><i className="tl">invariant-drafter</i></span></div></div>
-          <div className="seatcard"><span className="tile t-terra">SW</span><div><b className="serif">The Scriptwriter</b><i>writes for the ear</i><p className="mc-quote serif">“Students forgive a stumble; they never forgive a lecture that sounds laminated.”</p><span className="sc-body">Turns the teaching into a person talking: breath-length sentences, one idea each, silence scripted where the concept needs room to land. Adds no content of its own; the craft is entirely in the rendering.</span><span className="sc-hand">Hands up: the script, one visual cue per beat, and an honest timing estimate marked as one.</span><span className="card-tools"><i className="tl">script-drafter</i><i className="tl">narration-timer</i><i className="tl">visual-cue-marker</i></span></div></div>
+          <div className="seatcard"><SeatTile t="SE" /><div><b className="serif">The Subject Expert</b><i>the craft seat &middot; composed per discipline &middot; Management holds it first</i><p className="mc-quote serif">“In management, the concept and the case teach each other, and neither teaches alone.”</p><span className="sc-body">Reads your deck as the data room, proposes the chunking around the week's hinge concept, and drafts the teaching the way the discipline gets to excellent: the dilemma, the case, the framework meeting Monday morning. A Biologist or a Mathematician will hold this seat differently, later.</span><span className="sc-hand">Hands up: the chunks, their draft invariants, and every addition flagged before it is attached.</span><span className="card-tools"><i className="tl">deck-parser</i><i className="tl">chunk-composer</i><i className="tl">case-builder</i><i className="tl">framework-finder</i><i className="tl">invariant-drafter</i></span></div></div>
+          <div className="seatcard"><SeatTile t="SW" /><div><b className="serif">The Scriptwriter</b><i>writes for the ear</i><p className="mc-quote serif">“Students forgive a stumble; they never forgive a lecture that sounds laminated.”</p><span className="sc-body">Turns the teaching into a person talking: breath-length sentences, one idea each, silence scripted where the concept needs room to land. Adds no content of its own; the craft is entirely in the rendering.</span><span className="sc-hand">Hands up: the script, one visual cue per beat, and an honest timing estimate marked as one.</span><span className="card-tools"><i className="tl">script-drafter</i><i className="tl">narration-timer</i><i className="tl">visual-cue-marker</i></span></div></div>
 
           <div className="d-seclabel">The reviewing seats &middot; they push back, with named gaps</div>
-          <div className="seatcard"><span className="tile t-sage">LD</span><div><b className="serif">The Learning Designer</b><i>starts at the destination</i> <span className="gatebadge">◆ holds a gate &middot; alignment</span><p className="mc-quote serif">“Show me the verb a checkpoint can catch.”</p><span className="sc-body">Walks every chunk backward from its checkpoint: the work must earn the check, and an observable objective must name the work. An orphaned chunk does not ship, however beautiful it is.</span><span className="card-tools"><i className="tl ev">alignment-matrix</i><i className="tl ev">objective-tracer</i></span></div></div>
-          <div className="seatcard"><span className="tile t-sage">LS</span><div><b className="serif">The Learning Scientist</b><i>attention is a budget</i><p className="mc-quote serif">“A chunk that overdraws the account teaches nothing, beautifully.”</p><span className="sc-body">Reads each chunk against working memory: one concept at a time, names before mechanisms, a runtime budget held as the room's working number and a dial, never a law. Locates the problem; leaves the cut to the drafters.</span><span className="card-tools"><i className="tl ev">load-meter</i><i className="tl ev">pace-gauge</i></span></div></div>
-          <div className="seatcard"><span className="tile t-sage">MD</span><div><b className="serif">The Multimedia Designer</b><i>pairs the ear and the eye</i><p className="mc-quote serif">“The seductive detail is not remembered alongside the mechanism. It is remembered instead of it.”</p><span className="sc-body">Audits every cue: narration paired with image, never with its own transcript, one cue per beat. Hunts the vivid thing that points away from the concept, and logs every cut with what it would have cost to keep.</span><span className="card-tools"><i className="tl ev">storyboard-audit</i><i className="tl ev">coherence-check</i></span></div></div>
-          <div className="seatcard"><span className="tile t-sage">AR</span><div><b className="serif">The Archivist</b><i>your material, accounted for</i> <span className="gatebadge">◆ holds a gate &middot; provenance</span><p className="mc-quote serif">“I do not decide what is true; I decide what is yours, what is ours, and whether the record can prove the difference.”</p><span className="sc-body">Traces every claim to a slide or tags it as the room's addition, ledgered for your strike. Rules on accounted-for, never on true, because the deck is your thinking and not the room's to audit.</span><span className="card-tools"><i className="tl ev">provenance-tagger</i><i className="tl ev">enrichment-ledger</i></span></div></div>
-          <div className="seatcard counter"><span className="tile t-terra">PV</span><div><b className="serif">The Provocateur</b><i>the counterweight</i> <span className="counterbadge">seated on purpose</span><p className="mc-quote serif">“Will anyone remember this tomorrow?”</p><span className="sc-body">Reads for the failure the other checks cannot see: the chunk that passes every audit and gets skipped at minute one by a tired student at midnight. Proposes the bold reading, costed in seconds and pointed at the concept, and withdraws its own misses on the record.</span><span className="card-tools"><i className="tl ev">boredom-audit</i><i className="tl ev">live-question-bank</i></span></div></div>
+          <div className="seatcard"><SeatTile t="LD" /><div><b className="serif">The Learning Designer</b><i>starts at the destination</i> <span className="gatebadge">◆ holds a gate &middot; alignment</span><p className="mc-quote serif">“Show me the verb a checkpoint can catch.”</p><span className="sc-body">Walks every chunk backward from its checkpoint: the work must earn the check, and an observable objective must name the work. An orphaned chunk does not ship, however beautiful it is.</span><span className="card-tools"><i className="tl ev">alignment-matrix</i><i className="tl ev">objective-tracer</i></span></div></div>
+          <div className="seatcard"><SeatTile t="LS" /><div><b className="serif">The Learning Scientist</b><i>attention is a budget</i><p className="mc-quote serif">“A chunk that overdraws the account teaches nothing, beautifully.”</p><span className="sc-body">Reads each chunk against working memory: one concept at a time, names before mechanisms, a runtime budget held as the room's working number and a dial, never a law. Locates the problem; leaves the cut to the drafters.</span><span className="card-tools"><i className="tl ev">load-meter</i><i className="tl ev">pace-gauge</i></span></div></div>
+          <div className="seatcard"><SeatTile t="MD" /><div><b className="serif">The Multimedia Designer</b><i>pairs the ear and the eye</i><p className="mc-quote serif">“The seductive detail is not remembered alongside the mechanism. It is remembered instead of it.”</p><span className="sc-body">Audits every cue: narration paired with image, never with its own transcript, one cue per beat. Hunts the vivid thing that points away from the concept, and logs every cut with what it would have cost to keep.</span><span className="card-tools"><i className="tl ev">storyboard-audit</i><i className="tl ev">coherence-check</i></span></div></div>
+          <div className="seatcard"><SeatTile t="AR" /><div><b className="serif">The Archivist</b><i>your material, accounted for</i> <span className="gatebadge">◆ holds a gate &middot; provenance</span><p className="mc-quote serif">“I do not decide what is true; I decide what is yours, what is ours, and whether the record can prove the difference.”</p><span className="sc-body">Traces every claim to a slide or tags it as the room's addition, ledgered for your strike. Rules on accounted-for, never on true, because the deck is your thinking and not the room's to audit.</span><span className="card-tools"><i className="tl ev">provenance-tagger</i><i className="tl ev">enrichment-ledger</i></span></div></div>
+          <div className="seatcard counter"><SeatTile t="PV" /><div><b className="serif">The Provocateur</b><i>the counterweight</i> <span className="counterbadge">seated on purpose</span><p className="mc-quote serif">“Will anyone remember this tomorrow?”</p><span className="sc-body">Reads for the failure the other checks cannot see: the chunk that passes every audit and gets skipped at minute one by a tired student at midnight. Proposes the bold reading, costed in seconds and pointed at the concept, and withdraws its own misses on the record.</span><span className="card-tools"><i className="tl ev">boredom-audit</i><i className="tl ev">live-question-bank</i></span></div></div>
 
           <div className="gateline"><span className="dia">◆</span> A gate is not a weight. An unaccounted claim, or an orphaned chunk, returns the work, and no quality argues it down.</div>
 
           <div className="d-seclabel">The chair &middot; not an eighth lens</div>
           <div className="chaircard" style={{ marginTop: 14 }}>
-            <div className="cc-label"><span className="mtile t-gold">DC</span>The Design Chair</div>
+            <div className="cc-label"><SeatTile t="DC" mini />The Design Chair</div>
             <p className="mc-quote serif" style={{ fontSize: 16, marginTop: 10 }}>“I adjudicate process. I never adjudicate taste.”</p>
             <p className="cc-text serif" style={{ fontSize: 15.5 }}>Brings no lens of its own; brings the order of operations and the ledger. Convenes the drafters, runs the reviewers independently and in parallel, routes the named gaps, and when two positions survive every check, it ships the conservative reading <b>by rule, not by preference</b>, wires the bold one to your dial, and carries the collision to you intact. It assembles the one thing this product sells:</p>
             <div className="owns-grid">
@@ -121,7 +123,7 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
 
         <div className={'dview' + (tab === 'table' ? ' on' : '')}>
           <div className="chaircard">
-            <div className="cc-label"><span className="mtile t-gold">DC</span>The Design Chair &middot; Presiding</div>
+            <div className="cc-label"><SeatTile t="DC" mini className="chair-lg" />The Design Chair &middot; Presiding</div>
             <div className="cc-pills"><span className="pill">2 proofing passes</span><span className="pill ok">checks passed</span><span className="pill ok">0 gates fired</span><span className="pill coll">1 collision</span><span className="pill gold">3 calls yours</span></div>
             <p className="cc-text serif">What I convened: your 24 slides, five chunks, two passes. Where the room agrees: alignment, load after revision, pairing, provenance. One collision stands on the opening. I shipped the conservative reading by rule, not by preference, and wired the bold one to your dial. Reserved for your desk: the enrichment, the opening, the checkpoint's exposure.</p>
           </div>
@@ -131,31 +133,31 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
           <div className="topic">
             <div className="topic-head"><span className="tname">Alignment</span><span className="t-badge ok">agreed</span></div>
             <div className="duo">
-              <div className="plate"><span className="who"><span className="mtile t-sage">LD</span>The Learning Designer</span>Objective “diagnose escalation in a live decision” is carried by the case and proven by the chunk 5 checkpoint. Verb audit clean: diagnose can be caught. <span className="srcc">backward walk</span></div>
-              <div className="plate"><span className="who draft"><span className="mtile t-terra">SE</span>The Subject Expert</span>The case turns on a decision: someone has to choose, and the choosing is what teaches. <span className="srcc">slides 12 to 17</span></div>
+              <div className="plate"><span className="who"><SeatTile t="LD" mini />The Learning Designer</span>Objective “diagnose escalation in a live decision” is carried by the case and proven by the chunk 5 checkpoint. Verb audit clean: diagnose can be caught. <span className="srcc">backward walk</span></div>
+              <div className="plate"><span className="who draft"><SeatTile t="SE" mini />The Subject Expert</span>The case turns on a decision: someone has to choose, and the choosing is what teaches. <span className="srcc">slides 12 to 17</span></div>
             </div>
           </div>
 
           <div className="topic">
             <div className="topic-head"><span className="tname">Attention &amp; load</span><span className="t-badge ok">resolved</span></div>
             <div className="duo">
-              <div className="plate"><span className="who"><span className="mtile t-sage">LS</span>The Learning Scientist</span>First draft ran 6:40 holding two concepts at once. The severable history was the cut to locate, not the length. <span className="srcc">pass 1</span></div>
-              <div className="plate"><span className="who draft"><span className="mtile t-terra">SE</span>The Subject Expert</span>The sidebar framed but did not carry; it moved to chunk 2 where the arithmetic lives. Now 4:10, one concept, one case. <span className="srcc">pass 2</span></div>
+              <div className="plate"><span className="who"><SeatTile t="LS" mini />The Learning Scientist</span>First draft ran 6:40 holding two concepts at once. The severable history was the cut to locate, not the length. <span className="srcc">pass 1</span></div>
+              <div className="plate"><span className="who draft"><SeatTile t="SE" mini />The Subject Expert</span>The sidebar framed but did not carry; it moved to chunk 2 where the arithmetic lives. Now 4:10, one concept, one case. <span className="srcc">pass 2</span></div>
             </div>
           </div>
 
           <div className="topic">
             <div className="topic-head"><span className="tname">Pairing &amp; media</span><span className="t-badge ok">agreed</span></div>
             <div className="duo">
-              <div className="plate"><span className="who"><span className="mtile t-sage">MD</span>The Multimedia Designer</span>Every cue pairs speech with image, never with its own transcript. One vivid anecdote pointed away from the mechanism; cut as a seductive detail, logged with its cost. <span className="srcc">cue audit</span></div>
-              <div className="plate"><span className="who draft"><span className="mtile t-terra">SW</span>The Scriptwriter</span>One cue per beat, narration over the decision tree, and a scripted pause after the line about money already being gone. <span className="srcc">script</span></div>
+              <div className="plate"><span className="who"><SeatTile t="MD" mini />The Multimedia Designer</span>Every cue pairs speech with image, never with its own transcript. One vivid anecdote pointed away from the mechanism; cut as a seductive detail, logged with its cost. <span className="srcc">cue audit</span></div>
+              <div className="plate"><span className="who draft"><SeatTile t="SW" mini />The Scriptwriter</span>One cue per beat, narration over the decision tree, and a scripted pause after the line about money already being gone. <span className="srcc">script</span></div>
             </div>
           </div>
 
           <div className="topic">
             <div className="topic-head"><span className="tname">Provenance</span><span className="t-badge ok">accounted &middot; gate did not fire</span></div>
             <div className="duo single">
-              <div className="plate"><span className="who"><span className="mtile t-sage">AR</span>The Archivist</span><span>{struck
+              <div className="plate"><span className="who"><SeatTile t="AR" mini />The Archivist</span><span>{struck
                 ? 'Nine claims traced to your deck. One enrichment in this chunk, struck at your desk and ledgered.'
                 : 'Nine claims traced to your deck. One enrichment in this chunk, tagged and ledgered.'}</span> I rule on accounted-for, never on true. <span className="srcc">trace map</span></div>
             </div>
@@ -164,10 +166,10 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
           <div className="topic">
             <div className="topic-head"><span className="tname">The opening</span><span className="t-badge coll">◆ collision</span></div>
             <div className="duo">
-              <div className="plate"><span className="who"><span className="mtile t-sage">LS</span>The Learning Scientist</span>A cold open spends attention before the learner has a frame to hang it on. The start of a chunk is when the budget is fullest; spend it on the mechanism. <span className="srcc">ledger</span></div>
-              <div className="plate"><span className="who" style={{ color: 'var(--terracotta-deep)' }}><span className="mtile t-terra">PV</span>The Provocateur</span>Safe is how chunks get skipped. The film question costs forty seconds and buys four minutes, and it points straight at the concept. Logged, not conceded. <span className="srcc">ledger</span></div>
+              <div className="plate"><span className="who"><SeatTile t="LS" mini />The Learning Scientist</span>A cold open spends attention before the learner has a frame to hang it on. The start of a chunk is when the budget is fullest; spend it on the mechanism. <span className="srcc">ledger</span></div>
+              <div className="plate"><span className="who" style={{ color: 'var(--terracotta-deep)' }}><SeatTile t="PV" mini />The Provocateur</span>Safe is how chunks get skipped. The film question costs forty seconds and buys four minutes, and it points straight at the concept. Logged, not conceded. <span className="srcc">ledger</span></div>
             </div>
-            <div className="ruling"><span className="rlabel"><span className="mtile t-gold">DC</span>The Design Chair ships by rule</span>Both readings passed every other check, so the conservative one shipped and the bold one is wired to your dial. The difference left is taste, and I do not break ties on taste. <button className="ledger-toggle" onClick={toggleLedger}>Open the full ledger entry</button></div>
+            <div className="ruling"><span className="rlabel"><SeatTile t="DC" mini />The Design Chair ships by rule</span>Both readings passed every other check, so the conservative one shipped and the bold one is wired to your dial. The difference left is taste, and I do not break ties on taste. <button className="ledger-toggle" onClick={toggleLedger}>Open the full ledger entry</button></div>
             <div className={'ledger' + (ledgerOpen ? ' on' : '')}>
               <b>Collision &middot; the opening of chunk 3.</b> The Provocateur argued for a cold open: a question that risks discomfort before the concept arrives. The Learning Scientist held that a cold open spends attention before the learner has a frame to hang it on. <b>Both readings passed every other check, so the Design Chair shipped the conservative one and logged the bold.</b> The dial is yours: close the room and turn the Provocateur up at your desk; the script plays the other reading in place.
             </div>
@@ -184,7 +186,7 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
           <div>
             <div className="brief-card">
               <div className="bc-head">
-                <span className={'tile ' + brief.c}>{brief.t}</span>
+                <SeatTile t={brief.t} />
                 <div>
                   <div className="bc-name">{brief.name}</div>
                   <div className="bc-ep">{brief.ep}</div>
@@ -235,9 +237,9 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
           <div ref={threadRef}>
             <div className="conv-ask">You ask</div>
             <div className="conv-q serif">Why does the opening stay safe?</div>
-            <div className="bubble performer-b on"><span className="b-who"><span className="mtile t-sage">LS</span>The Learning Scientist</span>Because attention is a budget, and the start of a chunk is when it is fullest. A cold open spends it on surprise before the learner has a frame. I would rather you spend it on the mechanism.</div>
-            <div className="bubble performer-b on"><span className="b-who"><span className="mtile t-terra">PV</span>The Provocateur</span>Safe is how chunks get skipped. The film question is not decoration; it is the concept wearing the student's own life. Forty seconds, repaid in four minutes of attention.</div>
-            <div className="rules"><span className="ru-label"><span className="mtile t-gold">DC</span>The Design Chair</span>Both readings passed every other check, so I shipped the safer one by rule, not by preference. The difference left is yours: turn the dial and the script plays both.</div>
+            <div className="bubble performer-b on"><span className="b-who"><SeatTile t="LS" mini />The Learning Scientist</span>Because attention is a budget, and the start of a chunk is when it is fullest. A cold open spends it on surprise before the learner has a frame. I would rather you spend it on the mechanism.</div>
+            <div className="bubble performer-b on"><span className="b-who"><SeatTile t="PV" mini />The Provocateur</span>Safe is how chunks get skipped. The film question is not decoration; it is the concept wearing the student's own life. Forty seconds, repaid in four minutes of attention.</div>
+            <div className="rules"><span className="ru-label"><SeatTile t="DC" mini />The Design Chair</span>Both readings passed every other check, so I shipped the safer one by rule, not by preference. The difference left is yours: turn the dial and the script plays both.</div>
             {asked.map(key => {
               const a = CONV_ANSWERS[key]
               return (
@@ -245,9 +247,9 @@ export default function Drawer({ open, onClose, struck, ledgerOpen, toggleLedger
                   <div className="conv-ask">You ask</div>
                   <div className="conv-q serif">{a.q}</div>
                   {a.bubbles.map(b => (
-                    <div className="bubble performer-b on" key={b.t}><span className="b-who"><span className={'mtile ' + b.tile}>{b.t}</span>{b.who}</span>{b.text}</div>
+                    <div className="bubble performer-b on" key={b.t}><span className="b-who"><SeatTile t={b.t} mini />{b.who}</span>{b.text}</div>
                   ))}
-                  <div className="rules"><span className="ru-label"><span className="mtile t-gold">DC</span>The Design Chair</span>{a.rule}</div>
+                  <div className="rules"><span className="ru-label"><SeatTile t="DC" mini />The Design Chair</span>{a.rule}</div>
                 </div>
               )
             })}

@@ -22,7 +22,15 @@ export const deskData = {
     beyond: 'One question ran beyond the master and was named as such. It is on your desk verbatim.',
   },
   pulse: { editions: 183, week: 3 },
-  drawer: { signedCount: 3, line: 'The drawer: three masters signed this term. Every strike recorded as yours.' },
+  drawer: {
+    signedCount: 3,
+    line: 'The drawer: three masters signed this term. Every strike recorded as yours.',
+    decks: [
+      { week: 3, title: 'The Business Case', file: 'MGMT110_Week3_BusinessCase.pptx', meta: 'signed master · v2 · 21 slides' },
+      { week: 2, title: 'Planning and Strategy', file: 'MGMT110_Week2_PlanningAndStrategy.pptx', meta: 'signed master · v1 · 19 slides' },
+      { week: 1, title: 'The Work of Management', file: 'MGMT110_Week1_WorkOfManagement.pptx', meta: 'signed master · v1 · 18 slides' },
+    ],
+  },
   parser: {
     proposal: 'This reads as MGMT110, Week 5: Risk and Uncertainty. 22 slides, agenda on slide 2.',
   },

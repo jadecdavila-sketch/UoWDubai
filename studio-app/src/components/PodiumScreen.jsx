@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { tunerDescs, tunerChips } from '../data.js'
 import Drawer from './Drawer.jsx'
+import SeatTile from './SeatTile.jsx'
 
 const TUNER_SEATS = [
   ['provocateur', 'Provocateur'],
@@ -247,7 +248,7 @@ export default function PodiumScreen({ forte, setForte, struck, setStruck, edits
 
       {!drawerOpen && (
         <button className="fab" onClick={() => setDrawerOpen(true)}>
-          <span className="tiles"><span className="tile t-terra">SE</span><span className="tile t-sage">LS</span><span className="tile t-gold">DC</span></span>
+          <span className="tiles"><SeatTile t="SE" /><SeatTile t="LS" /><SeatTile t="DC" /></span>
           <span>Convene the room</span>
         </button>
       )}
