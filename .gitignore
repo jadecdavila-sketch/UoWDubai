@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build output (produced by CI for Pages)
+dist/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor/OS cruft
+.vscode/
+*.swp

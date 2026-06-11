@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch: The Desk, recomposed (one card on calm paper)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Tokens copied exactly from studio-app/src/styles.css. Nothing approximated
+     except --navy-deep, a derived hover variant flagged for ratification. */
+  :root{
+    --paper:#EDE8DD; --paper-deep:#E4DECF; --card:#F4F1E8;
+    --ink:#211B12; --ink-soft:#534A3A;
+    --terracotta:#74211A; --terracotta-deep:#4C1610;
+    --sage:#8C7C58; --sage-deep:#6A5C3D; --sage-light:#CFC4A6;
+    --gold:#B08D4F; --gold-deep:#8A6C39;
+    --line:rgba(40,35,27,0.16);
+    --shadow:0 18px 50px -24px rgba(40,35,27,0.45);
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --navy:#17315A;
+    --navy-deep:#102342; /* derived: hover for navy CTA, parallel to terracotta/terracotta-deep. Needs sign-off. */
+    --mustard:#C9A227;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:radial-gradient(120% 60% at 50% 0%, #F3EFE6 0%, var(--paper) 42%, var(--paper-deep) 100%) no-repeat fixed;
+    color:var(--ink);font-family:'Barlow',sans-serif;line-height:1.6;font-size:14.5px;-webkit-font-smoothing:antialiased;
+  }
+  button{font-family:'Barlow',sans-serif;cursor:pointer;}
+  .serif{font-family:'Cormorant Garamond',serif;}
+
+  .desk{max-width:720px;margin:0 auto;padding:48px 26px 120px;}
+
+  /* The settle: the desk is already set when you arrive; sections take their
+     places in four quiet beats. First load only in the real build. */
+  @keyframes settle{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .beat{animation:settle .4s ease-out both;}
+  .beat.b2{animation-delay:.07s;} .beat.b3{animation-delay:.14s;} .beat.b4{animation-delay:.21s;}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important;}}
+
+  /* ===== masthead: three voices, then the strongest rule on the page ===== */
+  .sc-title{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5.2vw,48px);line-height:1.06;}
+  .sc-lede{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--ink-soft);margin-top:10px;max-width:560px;}
+  .cr-line{margin-top:30px;font-family:var(--mono);font-size:12px;letter-spacing:0.05em;color:var(--ink-soft);}
+  .cr-line b{font-weight:500;color:var(--ink);}
+  .cr-standing{font-family:'Cormorant Garamond',serif;font-size:19.5px;color:var(--ink);margin-top:8px;line-height:1.5;}
+  .rule-double{margin-top:26px;height:5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+
+  /* ===== shared section grammar: mono label, marker gutter, tapering air ===== */
+  .d-seclabel{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.24em;text-transform:uppercase;
+    font-weight:500;color:var(--ink-soft);
+  }
+  .gutter-row{display:grid;grid-template-columns:30px 1fr;align-items:baseline;}
+  .gmark{justify-self:start;line-height:1.6;}
+
+  /* ===== the tray: the one object on the surface ===== */
+  .sec-tray{padding:40px 0 44px;border-bottom:1px solid var(--line);}
+  .tray-card{
+    margin-top:14px;border:1px solid var(--line);border-left:3px solid var(--navy);
+    background:var(--card);box-shadow:var(--shadow);
+    padding:22px 24px 22px 0;display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  }
+  /* 27px internal lead so the diamond sits on the same axis as the marks below (30px minus the 3px navy rule) */
+  .tray-card .dia{flex:none;width:27px;text-align:left;padding-left:13px;color:var(--navy);font-size:17px;align-self:flex-start;line-height:1.5;}
+  .ti-main{flex:1;min-width:240px;}
+  .ti-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;line-height:1.15;}
+  .ti-standing{
+    display:inline-block;font-family:'Barlow',sans-serif;font-size:10.5px;letter-spacing:0.14em;
+    text-transform:uppercase;font-weight:600;color:var(--navy);margin-left:12px;vertical-align:4px;
+  }
+  .ti-line{font-size:13px;color:var(--ink-soft);margin-top:5px;line-height:1.6;}
+  .cta{
+    background:var(--navy);color:var(--paper);border:none;padding:12px 20px;
+    font-size:11px;letter-spacing:0.13em;text-transform:uppercase;font-weight:600;
+    border-radius:2px;transition:background .2s;
+  }
+  .cta:hover{background:var(--navy-deep);}
+
+  .desk-slot{
+    display:block;width:100%;margin-top:18px;border:1.5px dashed rgba(40,35,27,0.28);
+    background:rgba(255,255,255,0.35);padding:12px 16px 12px 30px;text-align:left;border-radius:3px;
+    transition:border-color .2s, background .2s;
+  }
+  .desk-slot:hover{border-color:rgba(23,49,90,0.5);background:rgba(255,255,255,0.65);}
+  .ds-label{font-family:'Cormorant Garamond',serif;font-size:15.5px;display:block;}
+  .ds-sub{font-size:11.5px;color:var(--ink-soft);display:block;margin-top:2px;}
+
+  /* ===== the ledger ===== */
+  .sec-ledger{padding:30px 0 32px;border-bottom:1px solid var(--line);}
+  .ledger-row{
+    display:grid;grid-template-columns:30px 1fr;align-items:baseline;width:100%;text-align:left;
+    background:none;border:none;padding:9px 0;font-size:13.5px;color:var(--ink-soft);line-height:1.65;
+    border-bottom:1px solid rgba(40,35,27,0.07);transition:color .15s;
+  }
+  .ledger-row:last-of-type{border-bottom:none;}
+  .ledger-row:hover{color:var(--ink);}
+  .ledger-row .gmark{color:var(--navy);font-size:13px;}
+  .ledger-row.held{color:var(--ink);}
+  .sec-ledger .d-seclabel, .sec-quiet .d-seclabel{margin-bottom:8px;}
+
+  /* ===== the quiet foot: editions and the drawer, compressed ===== */
+  .sec-quiet{padding:20px 0;border-bottom:1px solid var(--line);}
+  .sec-quiet.last{border-bottom:none;}
+  .desk-pulse{font-size:13px;color:var(--ink-soft);line-height:1.65;}
+  .desk-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mustard);position:relative;top:-1px;}
+  .drawer-row{
+    display:grid;grid-template-columns:30px 1fr;align-items:center;width:100%;text-align:left;
+    background:none;border:none;padding:2px 0;font-size:13px;color:var(--ink-soft);transition:color .15s;
+  }
+  .drawer-row:hover{color:var(--ink);}
+  .seal-mini{
+    width:22px;height:22px;border-radius:50%;border:1.5px solid var(--mustard);color:var(--mustard);
+    display:inline-flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;
+    font-size:12px;background:rgba(201,162,39,0.07);
+  }
+
+  /* bell, unchanged from the app, present for honest first-glance reading */
+  .fab{
+    position:fixed;right:26px;bottom:24px;display:flex;align-items:center;gap:11px;
+    background:var(--ink);color:var(--paper);border:none;border-radius:32px;padding:10px 24px 10px 12px;
+    box-shadow:0 16px 38px -12px rgba(40,35,27,0.6);font-size:11px;letter-spacing:0.18em;
+    text-transform:uppercase;font-weight:600;
+  }
+  .tiles{display:flex;gap:4px;}
+  .tile{width:30px;height:30px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:13px;color:var(--paper);border:1px solid rgba(246,241,230,0.35);}
+  .t-terra{background:var(--terracotta);} .t-sage{background:var(--sage-deep);} .t-gold{background:var(--gold-deep);}
+</style>
+</head>
+<body>
+  <div class="desk">
+
+    <header class="beat">
+      <h1 class="sc-title">Your desk.</h1>
+      <p class="sc-lede">The room prepares. The desk decides. Nothing reaches a student unsigned.</p>
+      <div class="cr-line"><b>MGMT110</b> &middot; Principles of Management &middot; Week 4 of 13</div>
+      <div class="cr-standing">Week 3 is signed and with your students. Week 4 waits on your deck.</div>
+      <div class="rule-double" role="presentation"></div>
+    </header>
+
+    <section class="sec-tray beat b2">
+      <div class="d-seclabel">On your desk</div>
+      <div class="tray-card">
+        <span class="dia">&#9670;</span>
+        <div class="ti-main">
+          <div class="ti-title">Week 4 &middot; Decision Traps<span class="ti-standing">waiting on your deck</span></div>
+          <div class="ti-line">The room is seated. Hand it this week's slides and the proofing room convenes.</div>
+        </div>
+        <button class="cta">Hand the room your deck</button>
+      </div>
+      <button class="desk-slot">
+        <span class="ds-label">Hand the room a deck</span>
+        <span class="ds-sub">Drop it here, or anywhere on the desk. The room reads it and proposes where it belongs.</span>
+      </button>
+    </section>
+
+    <section class="sec-ledger beat b3">
+      <div class="d-seclabel">Raised hands &middot; Week 3</div>
+      <button class="ledger-row">
+        <span class="gmark"></span>
+        <span>Eleven students asked whether escalation of commitment is the same as loss aversion. Loss aversion is on the Week 5 master; the overlap is flagged there.</span>
+      </button>
+      <button class="ledger-row held">
+        <span class="gmark">&#9670;</span>
+        <span>One question ran beyond the master and was named as such. It is on your desk verbatim.</span>
+      </button>
+    </section>
+
+    <section class="sec-quiet beat b4">
+      <div class="d-seclabel">Editions</div>
+      <div class="gutter-row desk-pulse">
+        <span class="gmark"><span class="desk-dot"></span></span>
+        <span>183 editions met Week 3 this week. Every one was checked against its invariants before it shipped.</span>
+      </div>
+    </section>
+
+    <section class="sec-quiet last beat b4">
+      <div class="d-seclabel">The drawer</div>
+      <button class="drawer-row">
+        <span class="gmark"><span class="seal-mini">&#10003;</span></span>
+        <span>The drawer: three masters signed this term. Every strike recorded as yours.</span>
+      </button>
+    </section>
+
+  </div>
+
+  <button class="fab">
+    <span class="tiles"><span class="tile t-terra">SE</span><span class="tile t-sage">LS</span><span class="tile t-gold">DC</span></span>
+    <span>Convene the room</span>
+  </button>
+</body>
+</html>
