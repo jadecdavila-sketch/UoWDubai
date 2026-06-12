@@ -700,7 +700,7 @@
   .sec-ledger{padding:30px 0 32px;border-bottom:1px solid var(--line);}
   .sec-ledger .d-seclabel,.sec-quiet .d-seclabel{margin-bottom:8px;}
   .ledger-head{display:flex;align-items:center;gap:13px;margin-bottom:8px;}
-  .ledger-head .d-seclabel{margin-bottom:0;}
+  .ledger-head .d-seclabel{margin-bottom:0;margin-left:-32px;}
   .ledger-thumb{
     width:clamp(80px,10.5vw,100px);height:clamp(80px,10.5vw,100px);object-fit:cover;flex:none;margin-top:-12px;
     -webkit-mask-image:
