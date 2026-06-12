@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Studio. An Aurica Method, composed for UOWD.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Barlow:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE8DD;
+    --paper-deep:#E4DECF;
+    --ink:#211B12;
+    --ink-soft:#534A3A;
+    --terracotta:#74211A;
+    --terracotta-deep:#4C1610;
+    --sage:#8C7C58;
+    --sage-deep:#6A5C3D;
+    --sage-light:#CFC4A6;
+    --gold:#B08D4F;
+    --gold-deep:#8A6C39;
+    --rule-blue:#8A6C39;
+    --line:rgba(40,35,27,0.16);
+    --shadow:0 18px 50px -24px rgba(40,35,27,0.45);
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:radial-gradient(120% 60% at 50% 0%, #F3EFE6 0%, var(--paper) 42%, var(--paper-deep) 100%) no-repeat fixed;
+    color:var(--ink);
+    font-family:'Barlow',sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 26px;}
+  button{font-family:'Barlow',sans-serif;cursor:pointer;}
+  button:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
+
+  /* ============ masthead ============ */
+  header.wrap{padding:74px 26px 18px;text-align:center;}
+  .kicker{
+    font-weight:500;letter-spacing:0.4em;text-transform:uppercase;
+    font-size:11.5px;color:var(--terracotta);margin-bottom:26px;
+  }
+  h1{
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:clamp(42px,7.2vw,76px);line-height:1.05;letter-spacing:-0.01em;
+  }
+  h1 em{font-style:italic;color:var(--terracotta);}
+  .thesis{
+    font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.5vw,24px);
+    font-style:italic;color:var(--ink-soft);max-width:640px;margin:22px auto 0;line-height:1.5;
+  }
+  .draft-banner{
+    display:inline-flex;align-items:center;gap:10px;margin-top:30px;
+    border:1px solid var(--gold);border-radius:3px;background:rgba(176,141,79,0.08);
+    padding:8px 16px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;
+    font-weight:600;color:var(--gold-deep);
+  }
+  .draft-banner .dia{color:#17315A;font-size:13px;}
+
+  .titleblock{
+    display:flex;justify-content:center;flex-wrap:wrap;
+    max-width:600px;margin:34px auto 0;border:1px solid var(--line);
+    font-family:var(--mono);background:rgba(255,255,255,0.35);
+  }
+  .tb-cell{
+    display:flex;flex-direction:column;gap:4px;
+    padding:11px 20px;border-right:1px solid var(--line);text-align:left;
+  }
+  .tb-cell:last-child{border-right:none;}
+  .tb-k{font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-soft);}
+  .tb-v{font-size:12px;color:var(--ink);letter-spacing:0.01em;}
+  .tb-note{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14.5px;
+    color:var(--ink-soft);margin-top:15px;
+  }
+  .tb-note .dia{color:#17315A;font-size:13px;}
+
+  /* ============ the score (hero) ============ */
+  .score-block{padding:40px 26px 8px;text-align:center;}
+  .score-frame{max-width:760px;margin:0 auto;}
+  .score-svg{width:100%;height:auto;display:block;}
+  .measure{opacity:0;animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;}
+  .m1{animation-delay:.3s;}.m2{animation-delay:.55s;}.m3{animation-delay:.8s;}
+  .m4{animation-delay:1.05s;}.m5{animation-delay:1.3s;}
+  .staffline{stroke-dasharray:760;stroke-dashoffset:760;animation:draw 1.6s ease-out .1s forwards;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .score-cap{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17.5px;
+    color:var(--ink-soft);max-width:560px;margin:18px auto 0;
+    opacity:0;animation:fadein 1s ease-out 1.8s forwards;
+  }
+  @keyframes fadein{to{opacity:1;}}
+
+  /* ============ legend ============ */
+  .legend{
+    max-width:560px;margin:40px auto 0;
+    display:flex;flex-direction:column;align-items:stretch;gap:0;
+    padding:0;background:#F4EEE0;border:1px solid var(--gold);
+    box-shadow:0 16px 40px -28px rgba(40,35,27,0.55);
+  }
+  .legend-title{
+    text-align:center;font-family:'Cormorant Garamond',serif;font-style:normal;
+    font-weight:600;font-size:22px;color:#74211A;letter-spacing:0.01em;
+    padding:15px 26px 13px;border-bottom:1px solid rgba(40,35,27,0.16);
+  }
+  .legend-key{display:flex;flex-direction:column;gap:10px;font-size:13px;padding:16px 30px 18px;color:var(--ink-soft);}
+  .lk-row{display:inline-flex;align-items:flex-start;gap:9px;}
+  .lk-row b{font-weight:600;color:var(--ink);}
+  .dot{width:8px;height:8px;border-radius:50%;background:#C9A227;display:inline-block;}
+  .dia{color:#17315A;font-size:14px;line-height:1;}
+
+  /* ============ movements ============ */
+  section.wrap{padding:84px 26px 64px;}
+  .movement{
+    display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);
+    padding-bottom:14px;margin-bottom:32px;
+  }
+  .mv-num{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;color:var(--terracotta);
+    flex:none;line-height:1;
+  }
+  .mv-name{
+    font-weight:600;font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .sec-title{
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:clamp(30px,4.8vw,46px);line-height:1.08;
+  }
+  .sec-title em{font-style:italic;color:var(--terracotta);}
+  .lede{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;
+    color:var(--ink-soft);max-width:580px;margin-top:14px;
+  }
+  .plain{max-width:660px;margin:22px 0 0;font-size:15.5px;color:var(--ink-soft);}
+  .plain b{color:var(--ink);font-weight:600;}
+  .marginal{
+    display:flex;gap:10px;align-items:baseline;max-width:660px;
+    margin:24px 0 10px;padding:14px 16px;border-left:2px solid var(--gold);
+    background:rgba(176,141,79,0.06);font-size:13.5px;color:var(--ink-soft);
+  }
+  .marginal .dia{flex:none;}
+
+  /* ============ thesis card ============ */
+  .thesis-card{
+    margin-top:34px;border:1px solid var(--line);background:rgba(255,255,255,0.4);
+    padding:34px 36px;position:relative;box-shadow:var(--shadow);
+  }
+  .thesis-card .t-label{
+    font-size:11px;letter-spacing:0.3em;text-transform:uppercase;font-weight:600;
+    color:var(--gold-deep);margin-bottom:14px;display:flex;align-items:center;gap:8px;
+  }
+  .thesis-card .t-body{
+    font-family:'Cormorant Garamond',serif;font-size:clamp(21px,3vw,27px);line-height:1.4;
+    color:var(--ink);
+  }
+  .thesis-card .t-body em{font-style:italic;color:var(--terracotta);}
+  .thesis-card .t-foot{margin-top:16px;font-size:13.5px;color:var(--ink-soft);max-width:560px;}
+
+  /* ============ dramatis personae ============ */
+  .personae{margin-top:36px;border-top:1px solid var(--line);}
+  .persona{
+    display:grid;grid-template-columns:46px 1fr auto;
+    grid-template-areas:"num head mode" "num tools tools" "num desc desc";
+    column-gap:16px;row-gap:10px;align-items:baseline;
+    padding:26px 4px;border-bottom:1px solid var(--line);
+    transition:background .25s;
+  }
+  .persona>.p-num{grid-area:num;}
+  .persona>div:nth-child(2){grid-area:head;}
+  .persona>.p-mode{grid-area:mode;}
+  .persona>.p-tools{grid-area:tools;}
+  .persona>.p-plain{grid-area:desc;}
+  .persona:hover{background:rgba(124,47,42,0.045);}
+  .persona.craft{background:rgba(176,141,79,0.07);border-left:2px solid var(--gold);padding-left:10px;}
+  .p-num{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:19px;color:var(--terracotta);}
+  .p-name{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;line-height:1.15;color:var(--ink);}
+  .p-epithet{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16.5px;color:var(--terracotta-deep);
+    display:block;margin-top:1px;
+  }
+  .p-plain{font-size:14px;color:var(--ink-soft);max-width:64ch;}
+  .p-mode{
+    font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;
+    text-align:right;color:#4A4234;
+  }
+  .p-mode.drafts{color:var(--terracotta-deep);}
+  .p-tools{
+    display:flex;gap:7px;flex-wrap:wrap;align-items:center;
+  }
+  .p-tools .pt-label{
+    font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;
+    color:#4A4234;margin-right:2px;
+  }
+  .tool{
+    font-family:var(--mono);font-size:11px;
+    border:1px solid rgba(124,47,42,0.35);background:rgba(124,47,42,0.07);
+    color:var(--terracotta-deep);padding:2.5px 9px;border-radius:2px;letter-spacing:0.02em;
+  }
+  .tool.eval{
+    border-color:rgba(40,35,27,0.28);background:rgba(40,35,27,0.05);color:#4A4234;
+  }
+  .chair-row .p-tools{grid-column:1/3;margin-top:8px;}
+  .chair-row .pt-label{color:var(--sage-light);}
+  .chair-row .tool{
+    border-color:rgba(176,141,79,0.5);background:rgba(176,141,79,0.13);color:var(--gold);
+  }
+  .personae-note{
+    margin-top:18px;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:15.5px;
+    color:var(--sage-deep);max-width:640px;
+  }
+  .chair-row{
+    margin-top:26px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+    padding:24px 28px;display:grid;grid-template-columns:1fr 1.4fr;gap:22px;align-items:baseline;
+  }
+  .chair-row .p-name{color:var(--paper);font-size:23px;}
+  .chair-row .p-epithet{color:#C85A42;}
+  .chair-row .p-plain{color:rgba(246,241,230,0.78);}
+  @media(max-width:680px){
+    .persona{grid-template-columns:34px 1fr;grid-template-areas:"num head" "num mode" "num tools" "num desc";column-gap:12px;}
+    .persona>.p-mode{text-align:left;}
+    .chair-row{grid-template-columns:1fr;}
+    .chair-row .p-tools{grid-column:1;}
+  }
+
+  /* ============ rehearsal (loop) ============ */
+  .loop{margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:rgba(255,255,255,0.35);}
+  .loop-step{padding:20px 16px;border-right:1px solid var(--line);position:relative;}
+  .loop-step:last-child{border-right:none;}
+  .loop-step:nth-child(3n){border-right:none;}
+  .loop-step:nth-child(-n+3){border-bottom:1px solid var(--line);}
+  .loop-step .ls-num{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;color:var(--terracotta);
+  }
+  .loop-step .ls-name{font-weight:600;font-size:13.5px;margin-top:4px;color:var(--ink);}
+  .loop-step .ls-desc{font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.5;}
+  .loop-step.back{background:rgba(140,124,88,0.10);}
+  .loop-note{margin-top:14px;font-size:13px;color:var(--sage-deep);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:15.5px;}
+  @media(max-width:760px){.loop{grid-template-columns:1fr;}.loop-step{border-right:none;border-bottom:1px solid var(--line);}}
+
+  .prov-demo{margin-top:30px;max-width:660px;}
+  .prov-line{
+    border:1px solid var(--line);background:rgba(255,255,255,0.5);padding:16px 18px;
+    font-size:14.5px;color:var(--ink-soft);line-height:1.7;
+  }
+  .tag{
+    display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.06em;
+    text-transform:uppercase;border-radius:2px;padding:2px 8px;margin-left:6px;vertical-align:1px;
+  }
+  .tag.deck{background:rgba(138,108,57,0.12);color:var(--rule-blue);border:1px solid rgba(138,108,57,0.35);}
+  .tag.enrich{background:rgba(176,141,79,0.13);color:var(--gold-deep);border:1px solid rgba(176,141,79,0.4);}
+
+  /* ============ invariants ============ */
+  .inv-card{
+    margin-top:34px;border:1px solid var(--line);background:rgba(255,255,255,0.45);
+    box-shadow:var(--shadow);
+  }
+  .inv-head{
+    padding:18px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;
+    align-items:baseline;gap:14px;flex-wrap:wrap;
+  }
+  .inv-head .ih-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:21px;}
+  .inv-head .ih-sub{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;}
+  .inv-body{padding:8px 24px 20px;}
+  .inv-row{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--ink-soft);}
+  .inv-row:last-child{border-bottom:none;}
+  .inv-row .ik{flex:none;font-size:10.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--rule-blue);width:118px;}
+  .inv-row .dot{margin-right:2px;}
+
+  /* ============ the two consoles ============ */
+  .consoles{margin-top:38px;}
+  .console-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media(max-width:760px){.console-grid{grid-template-columns:1fr;}}
+  .console{
+    border:1px solid var(--line);background:rgba(255,255,255,0.45);padding:22px 22px 24px;
+  }
+  .console.faculty{border-top:3px solid var(--terracotta);}
+  .console.student{border-top:3px solid var(--sage-deep);}
+  .c-label{font-size:11px;letter-spacing:0.26em;text-transform:uppercase;font-weight:600;margin-bottom:4px;}
+  .console.faculty .c-label{color:var(--terracotta-deep);}
+  .console.student .c-label{color:var(--sage-deep);}
+  .c-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin-bottom:12px;}
+  .c-group{margin-top:14px;}
+  .c-group-label{font-size:11.5px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{
+    border:1px solid var(--line);background:rgba(255,255,255,0.6);border-radius:2px;
+    font-size:13px;font-weight:500;padding:7px 13px;color:var(--ink-soft);
+    transition:all .2s;
+  }
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .chip.disabled{opacity:0.45;cursor:not-allowed;}
+  .chip-note{font-size:11.5px;color:var(--sage-deep);margin-top:7px;font-style:italic;}
+  .directive{
+    margin-top:16px;border-left:2px solid var(--terracotta);background:rgba(124,47,42,0.06);
+    padding:12px 14px;font-size:13px;color:var(--ink-soft);line-height:1.6;
+  }
+  .directive b{color:var(--terracotta-deep);}
+
+  .stage{
+    margin-top:22px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+    padding:30px 32px;box-shadow:var(--shadow);
+  }
+  .stage .st-label{
+    font-size:11px;letter-spacing:0.28em;text-transform:uppercase;font-weight:600;
+    color:var(--gold);margin-bottom:14px;
+  }
+  .stage .st-body{
+    font-family:'Cormorant Garamond',serif;font-size:18.5px;line-height:1.65;
+    color:rgba(246,241,230,0.94);max-width:720px;transition:opacity .25s;
+  }
+  .stage .st-body .seam{
+    display:block;margin-top:14px;font-style:italic;color:var(--sage-light);font-size:16.5px;
+  }
+  .stage .st-body .beat{
+    display:block;margin-top:14px;color:var(--gold);font-size:17px;
+  }
+  .stage.swap .st-body{opacity:0;}
+  .stage-inv{
+    margin-top:20px;border-top:1px solid rgba(246,241,230,0.22);padding-top:14px;
+    font-size:12px;color:rgba(246,241,230,0.65);line-height:1.7;
+  }
+  .stage-inv b{color:rgba(246,241,230,0.9);font-weight:600;}
+  .stage-inv .lock{color:var(--gold);}
+
+  /* ============ backstage (architecture) ============ */
+  .arch{margin-top:38px;}
+  .band{border:1px solid var(--line);background:rgba(255,255,255,0.42);padding:20px 22px;}
+  .band-label{
+    font-size:10.5px;letter-spacing:0.24em;text-transform:uppercase;font-weight:600;
+    color:var(--ink);margin-bottom:14px;display:flex;justify-content:space-between;
+    gap:10px;flex-wrap:wrap;align-items:baseline;
+  }
+  .band-label .bl-note{
+    letter-spacing:0.02em;text-transform:none;font-weight:400;font-style:italic;
+    color:var(--sage-deep);font-size:12px;font-family:'Cormorant Garamond',serif;font-size:14px;
+  }
+  .flow{text-align:center;padding:10px 0;color:var(--terracotta);font-size:14px;line-height:1.2;}
+  .flow .fl-cap{
+    display:block;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:600;margin-top:4px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:0.06em;
+  }
+  .node-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .node{
+    border:1px solid var(--line);background:rgba(255,255,255,0.6);padding:11px 14px;
+    font-size:12px;color:var(--ink-soft);flex:1;min-width:140px;line-height:1.5;
+  }
+  .node b{display:block;font-size:12.5px;color:var(--ink);font-weight:600;margin-bottom:2px;}
+  .node.ghost{border-style:dashed;opacity:0.6;}
+  .node.draftn{border-top:2px solid var(--terracotta);}
+  .node.evaln{border-top:2px solid var(--sage-deep);min-width:118px;}
+  .node.goldn{border-top:2px solid #C9A227;}
+  .node.goldn b{color:#C9A227;}
+  .gate{
+    display:flex;gap:8px 22px;align-items:baseline;margin-top:14px;flex-wrap:wrap;
+    font-size:12px;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:12px;
+  }
+  .gate .g-dia{color:var(--gold);font-size:14px;}
+  .gate b{color:var(--ink);font-weight:600;}
+  .orch-bar{
+    margin-top:14px;background:var(--ink);color:rgba(246,241,230,0.85);padding:11px 16px;
+    font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;line-height:1.5;
+  }
+  .orch-bar b{color:var(--gold);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:11px;}
+  .band-split{display:grid;grid-template-columns:1.55fr 1fr;gap:12px;align-items:stretch;}
+  @media(max-width:720px){.band-split{grid-template-columns:1fr;}}
+  .console-card{
+    border:1px solid var(--line);padding:14px 16px;font-size:12px;color:var(--ink-soft);
+    background:rgba(255,255,255,0.55);line-height:1.55;
+  }
+  .console-card.fc{border-left:3px solid var(--terracotta);}
+  .console-card.sc{border-left:3px solid var(--sage-deep);}
+  .console-card b{display:block;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:5px;}
+  .console-card.fc b{color:var(--terracotta-deep);}
+  .console-card.sc b{color:var(--sage-deep);}
+  .student-node{
+    border:1px solid var(--ink);background:rgba(40,35,27,0.04);text-align:center;
+    padding:16px;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);
+  }
+  .student-node i{color:var(--terracotta);}
+  .arch-legend{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:18px;font-size:11.5px;color:var(--ink-soft);align-items:center;}
+  .sw{width:10px;height:10px;display:inline-block;margin-right:7px;vertical-align:-1px;border:1px solid var(--line);}
+
+  /* ============ programme (phases) ============ */
+  .phases{margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media(max-width:760px){.phases{grid-template-columns:1fr;}}
+  .phase{
+    border:1px solid var(--line);background:rgba(255,255,255,0.4);padding:24px 22px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .phase .ph-num{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:15px;color:var(--terracotta);
+    letter-spacing:0.06em;
+  }
+  .phase .ph-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.2;}
+  .phase .ph-desc{font-size:13.5px;color:var(--ink-soft);line-height:1.65;}
+  .phase .ph-room{
+    margin-top:auto;padding-top:12px;border-top:1px solid var(--line);
+    font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:var(--sage-deep);
+  }
+
+  /* ============ judgment ============ */
+  .judgment{
+    margin-top:36px;border:1px solid var(--line);border-left:3px solid var(--gold);
+    background:rgba(255,255,255,0.45);padding:28px 30px;
+  }
+  .judgment .j-label{
+    font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;
+    color:#17315A;display:flex;align-items:center;gap:9px;margin-bottom:6px;
+  }
+  .j-row{
+    padding:15px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink-soft);
+    display:flex;gap:14px;align-items:baseline;
+  }
+  .j-row:last-child{border-bottom:none;}
+  .j-row .q{font-family:'Cormorant Garamond',serif;font-size:22px;color:#17315A;line-height:1;flex:none;}
+
+  /* ============ open questions ============ */
+  .oq{margin-top:36px;border-top:1px solid var(--line);}
+  .oq-row{
+    display:grid;grid-template-columns:46px 1fr;gap:16px;padding:18px 4px;
+    border-bottom:1px solid var(--line);align-items:baseline;
+  }
+  .oq-row .oq-num{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:19px;color:#17315A;}
+  .oq-row .oq-q{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.45;color:var(--ink);}
+  .oq-row .oq-sub{font-size:13px;color:var(--ink-soft);margin-top:5px;font-family:'Barlow';}
+
+  /* ============ coda ============ */
+  .coda{padding:70px 26px 30px;text-align:center;}
+  .coda-line{
+    font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.6vw,34px);font-weight:500;
+    line-height:1.3;max-width:620px;margin:0 auto;
+  }
+  .coda-line em{font-style:italic;color:var(--terracotta);}
+  footer{
+    text-align:center;padding:36px 0 56px;font-size:11.5px;letter-spacing:0.3em;
+    text-transform:uppercase;color:var(--ink-soft);font-weight:500;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;opacity:1 !important;}
+    .staffline{stroke-dashoffset:0;}
+  }
+
+  /* ===== compass re-skin additions ===== */
+  .rose-mini{flex:none;line-height:0;}
+  .mv-bearing{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap;}
+  .mast-emblem{display:flex;justify-content:center;margin:6px 0 12px;}
+  .mast-bearing{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:24px;}
+  .mast-bearing b{color:var(--terracotta);font-weight:500;}
+  @media (max-width:620px){ .mv-bearing{display:none;} }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="kicker">Aurica &middot; Composed for the University of Wollongong in Dubai</div>
+  <div class="mast-emblem"><svg viewBox="0 0 200 200" width="154" height="154" role="img" aria-label="Compass rose"><defs><filter id="csh" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dy="3" result="o"/><feFlood flood-color="#28231B" flood-opacity="0.20"/><feComposite in2="o" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="100" cy="100" r="80" fill="#F2ECDD" filter="url(#csh)"/><circle cx="100" cy="100" r="90" fill="none" stroke="#8A6C39" stroke-width="1.4"/><circle cx="100" cy="100" r="80" fill="none" stroke="#B08D4F" stroke-width="1"/><line x1="100.00" y1="20.00" x2="100.00" y2="11.00" stroke="#8A6C39" stroke-width="1.3"/><line x1="120.71" y1="22.73" x2="122.00" y2="17.90" stroke="#8A6C39" stroke-width="0.8"/><line x1="140.00" y1="30.72" x2="142.50" y2="26.39" stroke="#8A6C39" stroke-width="0.8"/><line x1="156.57" y1="43.43" x2="162.93" y2="37.07" stroke="#8A6C39" stroke-width="1.3"/><line x1="169.28" y1="60.00" x2="173.61" y2="57.50" stroke="#8A6C39" stroke-width="0.8"/><line x1="177.27" y1="79.29" x2="182.10" y2="78.00" stroke="#8A6C39" stroke-width="0.8"/><line x1="180.00" y1="100.00" x2="189.00" y2="100.00" stroke="#8A6C39" stroke-width="1.3"/><line x1="177.27" y1="120.71" x2="182.10" y2="122.00" stroke="#8A6C39" stroke-width="0.8"/><line x1="169.28" y1="140.00" x2="173.61" y2="142.50" stroke="#8A6C39" stroke-width="0.8"/><line x1="156.57" y1="156.57" x2="162.93" y2="162.93" stroke="#8A6C39" stroke-width="1.3"/><line x1="140.00" y1="169.28" x2="142.50" y2="173.61" stroke="#8A6C39" stroke-width="0.8"/><line x1="120.71" y1="177.27" x2="122.00" y2="182.10" stroke="#8A6C39" stroke-width="0.8"/><line x1="100.00" y1="180.00" x2="100.00" y2="189.00" stroke="#8A6C39" stroke-width="1.3"/><line x1="79.29" y1="177.27" x2="78.00" y2="182.10" stroke="#8A6C39" stroke-width="0.8"/><line x1="60.00" y1="169.28" x2="57.50" y2="173.61" stroke="#8A6C39" stroke-width="0.8"/><line x1="43.43" y1="156.57" x2="37.07" y2="162.93" stroke="#8A6C39" stroke-width="1.3"/><line x1="30.72" y1="140.00" x2="26.39" y2="142.50" stroke="#8A6C39" stroke-width="0.8"/><line x1="22.73" y1="120.71" x2="17.90" y2="122.00" stroke="#8A6C39" stroke-width="0.8"/><line x1="20.00" y1="100.00" x2="11.00" y2="100.00" stroke="#8A6C39" stroke-width="1.3"/><line x1="22.73" y1="79.29" x2="17.90" y2="78.00" stroke="#8A6C39" stroke-width="0.8"/><line x1="30.72" y1="60.00" x2="26.39" y2="57.50" stroke="#8A6C39" stroke-width="0.8"/><line x1="43.43" y1="43.43" x2="37.07" y2="37.07" stroke="#8A6C39" stroke-width="1.3"/><line x1="60.00" y1="30.72" x2="57.50" y2="26.39" stroke="#8A6C39" stroke-width="0.8"/><line x1="79.29" y1="22.73" x2="78.00" y2="17.90" stroke="#8A6C39" stroke-width="0.8"/><polygon points="126.16,73.84 96.46,96.46 100.00,100.00" fill="#8A6C39" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="126.16,73.84 100.00,100.00 103.54,103.54" fill="#D8C39A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="126.16,126.16 103.54,96.46 100.00,100.00" fill="#8A6C39" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="126.16,126.16 100.00,100.00 96.46,103.54" fill="#D8C39A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="73.84,126.16 103.54,103.54 100.00,100.00" fill="#8A6C39" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="73.84,126.16 100.00,100.00 96.46,96.46" fill="#D8C39A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="73.84,73.84 96.46,103.54 100.00,100.00" fill="#8A6C39" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="73.84,73.84 100.00,100.00 103.54,96.46" fill="#D8C39A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="164.00,100.00 100.00,93.50 100.00,100.00" fill="#8A6C39" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="164.00,100.00 100.00,100.00 100.00,106.50" fill="#D8C39A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="100.00,164.00 106.50,100.00 100.00,100.00" fill="#8A6C39" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="100.00,164.00 100.00,100.00 93.50,100.00" fill="#D8C39A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="36.00,100.00 100.00,106.50 100.00,100.00" fill="#8A6C39" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="36.00,100.00 100.00,100.00 100.00,93.50" fill="#D8C39A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="100.00,36.00 93.50,100.00 100.00,100.00" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><polygon points="100.00,36.00 100.00,100.00 106.50,100.00" fill="#9E4A3C" stroke="#28231B" stroke-width="0.5" stroke-linejoin="round"/><circle cx="100" cy="100" r="4.2" fill="#B08D4F" stroke="#28231B" stroke-width="0.6"/><circle cx="100" cy="100" r="1.5" fill="#28231B"/><text x="100.00" y="28.00" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond,serif" font-size="10" font-style="italic" fill="#7C2F2A">N</text><text x="172.00" y="100.00" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond,serif" font-size="10" font-style="italic" fill="#28231B">E</text><text x="100.00" y="172.00" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond,serif" font-size="10" font-style="italic" fill="#28231B">S</text><text x="28.00" y="100.00" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond,serif" font-size="10" font-style="italic" fill="#28231B">W</text></svg></div>
+  <div class="mast-bearing">True North &middot; <b>The Master</b></div>
+  <h1>Teaching, <em>architected</em>.</h1>
+  <p class="thesis">A course is made &mdash; drafted by specialists, vetted by your designers, owned by the faculty member, built to land with a student. Real in the very first course, not some far-off scale. The model is the instrument. The craft wrapped around it is the moat. This is the studio that holds it.</p>
+  <div class="titleblock">
+    <div class="tb-cell"><span class="tb-k">Project</span><span class="tb-v">The Studio</span></div>
+    <div class="tb-cell"><span class="tb-k">Client</span><span class="tb-v">UOWD</span></div>
+    <div class="tb-cell"><span class="tb-k">Drawn by</span><span class="tb-v">Aurica</span></div>
+    <div class="tb-cell"><span class="tb-k">Rev</span><span class="tb-v">05 &middot; Draft</span></div>
+  </div>
+  <div class="tb-note"><span class="dia">&#9670;</span> Composed to be argued with</div>
+</header>
+
+<div class="score-block wrap">
+  <div class="score-frame" style="max-width:940px">
+    <svg class="score-svg" viewBox="0 0 1040 186" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The pipeline: a faculty deck is chunked and its invariants locked; the studio's seven specialists review it through gates; faculty and ID approve the master; it is rendered into many editions for students."><path d="M216 66 l7 6 l-7 6" fill="none" stroke="#17315A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M416 66 l7 6 l-7 6" fill="none" stroke="#17315A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M616 66 l7 6 l-7 6" fill="none" stroke="#17315A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M816 66 l7 6 l-7 6" fill="none" stroke="#17315A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g class="measure"><text x="120" y="30" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="11" letter-spacing="2" fill="#17315A">01</text><rect x="110" y="54" width="30" height="24" rx="2" fill="#EDE6D6" stroke="#3E3729" stroke-width="1.2"/><rect x="100" y="60" width="30" height="24" rx="2" fill="#FFFFFF" stroke="#1A140B" stroke-width="1.6"/><line x1="105" y1="68" x2="123" y2="68" stroke="#3E3729" stroke-width="1"/><line x1="105" y1="74" x2="119" y2="74" stroke="#3E3729" stroke-width="1"/><text x="120" y="150" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="13" font-weight="600" fill="#1A140B">The deck comes in</text><text x="120" y="169" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="12" fill="#352E22">raw faculty slides</text></g><g class="measure"><text x="320" y="30" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="11" letter-spacing="2" fill="#17315A">02</text><rect x="293" y="72" width="16" height="15" rx="1.5" fill="#FFFFFF" stroke="#1A140B" stroke-width="1.5"/><rect x="311" y="72" width="16" height="15" rx="1.5" fill="#FFFFFF" stroke="#1A140B" stroke-width="1.5"/><rect x="329" y="72" width="16" height="15" rx="1.5" fill="#FFFFFF" stroke="#1A140B" stroke-width="1.5"/><path d="M315 56 V53 a5 5 0 0 1 10 0 V56" fill="none" stroke="#5E2420" stroke-width="1.8"/><rect x="312" y="56" width="16" height="12" rx="2" fill="#5E2420"/><circle cx="320" cy="62" r="1.6" fill="#E7E1D3"/><text x="320" y="150" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="13" font-weight="600" fill="#1A140B">Chunked &amp; locked</text><text x="320" y="169" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="12" fill="#352E22">invariants locked</text></g><g class="measure"><text x="520" y="30" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="11" letter-spacing="2" fill="#17315A">03</text><circle cx="499" cy="62" r="3.8" fill="#17315A"/><circle cx="513" cy="62" r="3.8" fill="#17315A"/><circle cx="527" cy="62" r="3.8" fill="#17315A"/><circle cx="541" cy="62" r="3.8" fill="#17315A"/><circle cx="506" cy="78" r="3.8" fill="#17315A"/><circle cx="520" cy="78" r="4" fill="#5E2420"/><circle cx="534" cy="78" r="3.8" fill="#17315A"/><text x="520" y="150" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="13" font-weight="600" fill="#1A140B">The Studio works it</text><text x="520" y="169" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="12" fill="#352E22">seven specialists, with gates</text></g><g class="measure"><text x="720" y="30" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="11" letter-spacing="2" fill="#17315A">04</text><line x1="700" y1="84" x2="740" y2="84" stroke="#1A140B" stroke-width="1.6"/><path d="M707 70 l7 8 l18 -19" fill="none" stroke="#5E2420" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><text x="720" y="150" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="13" font-weight="600" fill="#1A140B">Faculty &amp; ID approve</text><text x="720" y="169" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="12" fill="#352E22">nothing ships unapproved</text></g><g class="measure"><text x="920" y="30" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="11" letter-spacing="2" fill="#17315A">05</text><rect x="886" y="58" width="18" height="26" rx="2" fill="#1A140B"/><path d="M906 71 L931 60" stroke="#3E3729" stroke-width="1.1"/><path d="M906 71 L931 75" stroke="#3E3729" stroke-width="1.1"/><path d="M906 71 L931 90" stroke="#3E3729" stroke-width="1.1"/><rect x="934" y="54" width="18" height="11" rx="1.5" fill="#FFFFFF" stroke="#7C2F2A" stroke-width="1.4"/><rect x="934" y="69" width="18" height="11" rx="1.5" fill="#FFFFFF" stroke="#7C2F2A" stroke-width="1.4"/><rect x="934" y="84" width="18" height="11" rx="1.5" fill="#FFFFFF" stroke="#7C2F2A" stroke-width="1.4"/><text x="920" y="150" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="13" font-weight="600" fill="#1A140B">Editions to students</text><text x="920" y="169" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="12" fill="#352E22">one master, many</text></g></svg>
+    <p class="score-cap">One deck in. Many trustworthy editions out. The studio does the work between.</p>
+  </div>
+</div>
+
+
+
+<!-- ============ I. THE THESIS ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 252 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(252 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">I.</div><div class="mv-name">The Thesis</div><span class="mv-bearing">Bearing 252&deg;</span></div>
+  <h2 class="sec-title">Pedagogy first.<br>Personalization is <em>earned</em>.</h2>
+  <p class="lede">Every voice in the room — each a specialist in one craft of teaching — serves one sentence, and when a voice's best practice collides with it, the sentence wins.</p>
+
+  <div class="thesis-card">
+    <div class="t-label"><span class="dia">&#9670;</span> Draft thesis &middot; for your reaction</div>
+    <div class="t-body">A room of AI specialists &mdash; each expert in one craft of teaching &mdash; works your material into a single, finished course design. You approve it. It locks. That's the master. From that one master, every student gets their own edition: the same lesson underneath, their own way in. <em>The master is the contract between you and them.</em></div>
+    <div class="t-foot">You guarantee what's taught. The system makes it personal. Generate a whole course on the fly and it falls apart &mdash; students need a shared spine to hold onto. So the personal is earned, not assumed: the teaching is built and approved first, and the edition is what arrives after. Never instead.</div>
+  </div>
+
+  <p class="plain">The long vision is yours: courses that meet each student where they are, in their language, through their world. The discipline is ours to encode: that vision only holds if the teaching underneath it is structurally sound. <b>Trust, but verify</b>, built into the architecture rather than appended to it.</p>
+</section>
+
+<!-- ============ II. THE ENSEMBLE ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 288 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(288 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">II.</div><div class="mv-name">The Studio</div><span class="mv-bearing">Bearing 288&deg;</span></div>
+  <h2 class="sec-title">Seven seats<br>and a <em>chair</em>.</h2>
+  <p class="lede">Each voice owns one domain of the teaching craft, reads every chunk through that lens alone, and has standing instructions never to soften what it sees.</p>
+
+  <div class="personae">
+    <div class="persona craft">
+      <div class="p-num">I.</div>
+      <div><span class="p-name">The Subject Expert</span><span class="p-epithet">the craft seat &middot; composed per discipline</span></div>
+      <div class="p-plain">The discipline's own way of getting to excellent &mdash; anchored in the subject your course is built to teach, so the draft is shaped by the material itself, not around it. A Management mind holds the seat first: the dilemma, the case, the framework meeting Monday morning. A Biologist or a Mathematician will hold it differently, later.</div>
+      <div class="p-mode drafts">Drafts</div>
+      <div class="p-tools"><span class="pt-label">Tools</span><span class="tool">deck-parser</span><span class="tool">chunk-composer</span><span class="tool">case-builder</span><span class="tool">framework-finder</span><span class="tool">invariant-drafter</span></div>
+    </div>
+    <div class="persona">
+      <div class="p-num">II.</div>
+      <div><span class="p-name">The Scriptwriter</span><span class="p-epithet">writes for the ear</span></div>
+      <div class="p-plain">Turns teaching into spoken word. One take, natural, a person talking. Knows the research your own instinct already matches: students trust the organic lecture and abandon the over-produced one.</div>
+      <div class="p-mode drafts">Drafts</div>
+      <div class="p-tools"><span class="pt-label">Tools</span><span class="tool">script-drafter</span><span class="tool">narration-timer</span><span class="tool">visual-cue-marker</span></div>
+    </div>
+    <div class="persona">
+      <div class="p-num">III.</div>
+      <div><span class="p-name">The Learning Designer</span><span class="p-epithet">starts at the destination</span></div>
+      <div class="p-plain">Backward design and constructive alignment. Objectives, activities, and checkpoints must point at the same outcome, or the chunk is decoration. Asks of every chunk: what will the student be able to do?</div>
+      <div class="p-mode">Evaluates</div>
+      <div class="p-tools"><span class="pt-label">Tools</span><span class="tool eval">alignment-matrix</span><span class="tool eval">objective-tracer</span></div>
+    </div>
+    <div class="persona">
+      <div class="p-num">IV.</div>
+      <div><span class="p-name">The Learning Scientist</span><span class="p-epithet">attention is a budget</span></div>
+      <div class="p-plain">Cognitive load. Chunk length, sequencing, pace, one concept at a time. Working memory keeps the beat, and a chunk that rushes it is a chunk that teaches nothing.</div>
+      <div class="p-mode">Evaluates</div>
+      <div class="p-tools"><span class="pt-label">Tools</span><span class="tool eval">load-meter</span><span class="tool eval">pace-gauge</span></div>
+    </div>
+    <div class="persona">
+      <div class="p-num">V.</div>
+      <div><span class="p-name">The Multimedia Designer</span><span class="p-epithet">what the eye does while the ear listens</span></div>
+      <div class="p-plain">The evidence on multimedia learning. Narration paired with the right visual, never with a wall of text. Guards against the seductive detail: the fascinating thing that entertains the room and erases the concept.</div>
+      <div class="p-mode">Evaluates</div>
+      <div class="p-tools"><span class="pt-label">Tools</span><span class="tool eval">storyboard-audit</span><span class="tool eval">coherence-check</span></div>
+    </div>
+    <div class="persona">
+      <div class="p-num">VI.</div>
+      <div><span class="p-name">The Archivist</span><span class="p-epithet">your material, accounted for</span></div>
+      <div class="p-plain">Provenance. Every claim in the script traces to the faculty deck, or wears a tag naming it as enrichment the system added. Nothing arrives unaccounted for. This seat is the trust framework, made structural.</div>
+      <div class="p-mode">Evaluates</div>
+      <div class="p-tools"><span class="pt-label">Tools</span><span class="tool eval">provenance-tagger</span><span class="tool eval">enrichment-ledger</span></div>
+    </div>
+    <div class="persona">
+      <div class="p-num">VII.</div>
+      <div><span class="p-name">The Provocateur</span><span class="p-epithet">boredom is a failure mode</span></div>
+      <div class="p-plain">The counterweight. A room of rigorous voices converges on the careful, forgettable lecture. This one asks the question the rest will not: will anyone remember this tomorrow? Argues for the live question, the bold move, the productive discomfort.</div>
+      <div class="p-mode">Evaluates</div>
+      <div class="p-tools"><span class="pt-label">Tools</span><span class="tool eval">boredom-audit</span><span class="tool eval">live-question-bank</span></div>
+    </div>
+  </div>
+
+  <div class="chair-row">
+    <div><span class="p-name">The Design Chair</span><span class="p-epithet">runs the studio, never grades it</span></div>
+    <div class="p-plain">Convenes the voices independently, names where they agree, surfaces where they collide, and hands the master upward with its reasoning attached. The Design Chair leads the studio. You lead the course. No verdict is issued here, because a course is not a deal: there is no single number that says good. There is a faculty member with taste, and a room built to inform it.</div>
+    <div class="p-tools"><span class="pt-label">Tools</span><span class="tool">master-assembler</span><span class="tool">trace-composer</span><span class="tool">collision-ledger</span></div>
+  </div>
+
+  <p class="personae-note"><span style="color:#17315A">&#9670;</span> This is a draft cast, not a final one. Seats can merge, split, or change who holds them, and the tool names are working labels for what each one will do. The structure holds; the casting is yours to react to.</p>
+</section>
+
+<!-- ============ III. THE REHEARSAL ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 324 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(324 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">III.</div><div class="mv-name">The Proof</div><span class="mv-bearing">Bearing 324&deg;</span></div>
+  <h2 class="sec-title">The deck goes in.<br>The <em>master</em> comes out.</h2>
+  <p class="lede">The room's drafters propose. Its reviewers push back, with named gaps. The loop runs until the room agrees &mdash; or until the disagreement is worth bringing to you.</p>
+
+  <div class="loop">
+    <div class="loop-step">
+      <div class="ls-num">1</div>
+      <div class="ls-name">The deck arrives</div>
+      <div class="ls-desc">Your slides become the data room. Everything downstream is accountable to them.</div>
+    </div>
+    <div class="loop-step">
+      <div class="ls-num">2</div>
+      <div class="ls-name">The drafting seats</div>
+      <div class="ls-desc">The Subject Expert shapes the teaching from the subject your course conveys; the Scriptwriter gives it a human voice. Two of the room's seats, chunk by chunk.</div>
+    </div>
+    <div class="loop-step back">
+      <div class="ls-num">3</div>
+      <div class="ls-name">The room pushes back</div>
+      <div class="ls-desc">Each evaluating voice critiques through its own lens, with named gaps. A failed check sends the chunk back to step 2.</div>
+    </div>
+    <div class="loop-step">
+      <div class="ls-num">4</div>
+      <div class="ls-name">The Design Chair weaves</div>
+      <div class="ls-desc">Agreements, collisions, and open calls are synthesized into the master and its reasoning trace.</div>
+    </div>
+    <div class="loop-step back">
+      <div class="ls-num">5</div>
+      <div class="ls-name">The house reviews</div>
+      <div class="ls-desc">Before it reaches you, UOWD's own instructional designers vet the master against the institution's standards &mdash; reading the room's trace, not re-deriving it. They sign off, or send it back. At launch, every master. Once the room earns it, a sampled few.</div>
+    </div>
+    <div class="loop-step">
+      <div class="ls-num">6</div>
+      <div class="ls-name">The faculty reviews and decides</div>
+      <div class="ls-desc">The faculty member's review, feedback, and final say. Approve, send it back with notes, redirect, or turn a voice up &mdash; the room's reasoning and the designers' sign-off open beneath the decision.</div>
+    </div>
+  </div>
+  <p class="loop-note">The trace is not an afterthought. Every script ships with its making-of: where the voices agreed, where they pulled apart, and which calls were left to you.</p>
+
+  <div class="marginal"><span class="dia">&#9670;</span> The room works under your designers, not around them. Every master passes a human instructional designer before it passes to faculty &mdash; and your designers hold the dial that decides how much the system still needs watching. They are not replaced by the room. They are promoted above it.</div>
+
+  <div class="prov-demo">
+    <div class="c-group-label">How a script accounts for itself</div>
+    <div class="prov-line">
+      Most expansion plans fail not from bad strategy but from escalation of commitment <span class="tag deck">your deck &middot; slide 14</span> and the regional evidence agrees: consider the 2025 Gulf logistics consolidation, where exits clustered two years too late <span class="tag enrich">enrichment &middot; added by the room</span>
+    </div>
+    <div class="marginal"><span class="dia">&#9670;</span> Enrichment is the room's contribution, never its assertion. You see what came from your material and what the system brought, and the second category is always yours to strike.</div>
+  </div>
+</section>
+
+<!-- ============ IV. THE SCORE ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 0 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(0 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">IV.</div><div class="mv-name">The Master</div><span class="mv-bearing">Bearing 000&deg; &middot; True North</span></div>
+  <h2 class="sec-title">What is locked,<br>and what is <em>free</em>.</h2>
+  <p class="lede">Each chunk carries its invariants: the concepts that must land, the misconceptions that must not, and the checkpoint that proves it. Everything else is edition.</p>
+
+  <div class="score-frame" style="margin:6px auto 4px"><svg class="score-svg" viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One master rendered as a sequence of course chunks, each carrying its locked invariants and ending in a checkpoint">
+      <!-- sequence connectors between chunks -->
+      <path class="seq" d="M152 73 l6 5 l-6 5" fill="none" stroke="rgba(40,35,27,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="seq" d="M292 73 l6 5 l-6 5" fill="none" stroke="rgba(40,35,27,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="seq" d="M432 73 l6 5 l-6 5" fill="none" stroke="rgba(40,35,27,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="seq" d="M572 73 l6 5 l-6 5" fill="none" stroke="rgba(40,35,27,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g class="measure m1">
+        <rect x="30" y="40" width="110" height="76" fill="rgba(255,255,255,0.5)" stroke="rgba(40,35,27,0.3)" stroke-width="1.2"/>
+        <text x="85" y="62" text-anchor="middle" font-family="Barlow" font-size="10" letter-spacing="1.5" fill="#6B6151">CHUNK 1</text>
+        <path d="M81 77 V74 a4 4 0 0 1 8 0 V77" fill="none" stroke="#5E2420" stroke-width="1.7"/><rect x="78" y="77" width="14" height="11" rx="2" fill="#5E2420"/><circle cx="85" cy="82" r="1.4" fill="#E7E1D3"/>
+        <text x="85" y="106" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#5E2420">invariants locked</text>
+      </g>
+      <g class="measure m2">
+        <rect x="170" y="40" width="110" height="76" fill="rgba(255,255,255,0.5)" stroke="rgba(40,35,27,0.3)" stroke-width="1.2"/>
+        <text x="225" y="62" text-anchor="middle" font-family="Barlow" font-size="10" letter-spacing="1.5" fill="#6B6151">CHUNK 2</text>
+        <path d="M221 77 V74 a4 4 0 0 1 8 0 V77" fill="none" stroke="#5E2420" stroke-width="1.7"/><rect x="218" y="77" width="14" height="11" rx="2" fill="#5E2420"/><circle cx="225" cy="82" r="1.4" fill="#E7E1D3"/>
+        <text x="225" y="106" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#5E2420">invariants locked</text>
+      </g>
+      <g class="measure m3">
+        <rect x="310" y="40" width="110" height="76" fill="rgba(255,255,255,0.5)" stroke="rgba(40,35,27,0.3)" stroke-width="1.2"/>
+        <text x="365" y="62" text-anchor="middle" font-family="Barlow" font-size="10" letter-spacing="1.5" fill="#6B6151">CHUNK 3</text>
+        <path d="M361 77 V74 a4 4 0 0 1 8 0 V77" fill="none" stroke="#5E2420" stroke-width="1.7"/><rect x="358" y="77" width="14" height="11" rx="2" fill="#5E2420"/><circle cx="365" cy="82" r="1.4" fill="#E7E1D3"/>
+        <text x="365" y="106" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#5E2420">invariants locked</text>
+      </g>
+      <g class="measure m4">
+        <rect x="450" y="40" width="110" height="76" fill="rgba(255,255,255,0.5)" stroke="rgba(40,35,27,0.3)" stroke-width="1.2"/>
+        <text x="505" y="62" text-anchor="middle" font-family="Barlow" font-size="10" letter-spacing="1.5" fill="#6B6151">CHUNK 4</text>
+        <path d="M501 77 V74 a4 4 0 0 1 8 0 V77" fill="none" stroke="#5E2420" stroke-width="1.7"/><rect x="498" y="77" width="14" height="11" rx="2" fill="#5E2420"/><circle cx="505" cy="82" r="1.4" fill="#E7E1D3"/>
+        <text x="505" y="106" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#5E2420">invariants locked</text>
+      </g>
+      <g class="measure m5">
+        <rect x="590" y="40" width="110" height="76" fill="rgba(255,255,255,0.5)" stroke="rgba(40,35,27,0.3)" stroke-width="1.2"/>
+        <text x="645" y="62" text-anchor="middle" font-family="Barlow" font-size="10" letter-spacing="1.5" fill="#6B6151">CHECKPOINT</text>
+        <path d="M636 80 l5 6 l14 -15" fill="none" stroke="#7C2F2A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="645" y="106" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#5E2420">proof it landed</text>
+      </g>
+    </svg></div>
+
+  <div class="inv-card">
+    <div class="inv-head">
+      <div class="ih-title">Chunk 3 &middot; Escalation of Commitment</div>
+      <div class="ih-sub">An example chunk, from a Principles of Management master</div>
+    </div>
+    <div class="inv-body">
+      <div class="inv-row"><div class="ik"><span class="dot"></span> Must land</div><div>Commitment escalates because of identity and self-justification, not arithmetic. The money is gone either way.</div></div>
+      <div class="inv-row"><div class="ik"><span class="dot"></span> Must avoid</div><div>The misconception that sunk cost is only about money. Time, reputation, and public position sink too.</div></div>
+      <div class="inv-row"><div class="ik"><span class="dot"></span> Checkpoint</div><div>The learner names one commitment in their own work or studies that deserves the test.</div></div>
+      <div class="inv-row"><div class="ik" style="color:#17315A">&#9670; Yours</div><div>Which example carries it, how hard the question lands, and whether this chunk is the place to be bold.</div></div>
+    </div>
+  </div>
+
+  <p class="plain">This is the answer to the hardest question in the room: how can a thousand students each get their own lecture without the course dissolving into a thousand courses? <b>Because the skeleton is shared.</b> Like a score that survives every performance, the invariants don't move &mdash; only the playing does. A thousand students. One course. Nothing essential drifts.</p>
+</section>
+
+<!-- ============ V. TWO CONDUCTORS ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 36 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(36 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">V.</div><div class="mv-name">Two Consoles</div><span class="mv-bearing">Bearing 036&deg;</span></div>
+  <h2 class="sec-title">Same master.<br><em>Different hands.</em></h2>
+  <p class="lede">Two consoles act on one chunk. The faculty console shapes how the studio works. The student console shapes how the edition lands. Try both. Watch what refuses to change.</p>
+
+  <div class="consoles">
+    <div class="console-grid">
+      <div class="console faculty">
+        <div class="c-label">The Faculty Console</div>
+        <div class="c-title">Direct the studio</div>
+        <div class="c-group">
+          <div class="c-group-label">The Provocateur</div>
+          <div class="chips" role="group" aria-label="Provocateur loudness">
+            <button class="chip" id="chip-std" aria-pressed="true" onclick="setForte(false)">Standard reading</button>
+            <button class="chip" id="chip-forte" aria-pressed="false" onclick="setForte(true)">Turned up</button>
+          </div>
+        </div>
+        <div class="directive" id="directive"><b>Directive to the room:</b> run the standard reading. Concept, mechanism, example, checkpoint.</div>
+      </div>
+      <div class="console student">
+        <div class="c-label">The Student Console</div>
+        <div class="c-title">Shape the edition</div>
+        <div class="c-group">
+          <div class="c-group-label">Teach it through</div>
+          <div class="chips" role="group" aria-label="Performance lens">
+            <button class="chip" id="lens-straight" aria-pressed="true" onclick="setLens('straight')">As written</button>
+            <button class="chip" id="lens-megaproject" aria-pressed="false" onclick="setLens('megaproject')">A megaproject</button>
+            <button class="chip" id="lens-family" aria-pressed="false" onclick="setLens('family')">A family business</button>
+          </div>
+        </div>
+        <div class="c-group">
+          <div class="c-group-label">Language</div>
+          <div class="chips">
+            <button class="chip" aria-pressed="true">English</button>
+            <button class="chip disabled" aria-disabled="true" title="Phase II">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577; &middot; Phase II</button>
+          </div>
+          <div class="chip-note">Arabic arrives as an edition dimension in Phase II, where it belongs to the same architecture, not a separate one.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage" id="stage" aria-live="polite">
+      <div class="st-label">The Edition &middot; Chunk 3</div>
+      <div class="st-body" id="st-body"></div>
+      <div class="stage-inv"><span class="lock">&#9679;</span> <b>Held in every edition:</b> escalation is identity, not arithmetic &middot; sunk cost is never only money &middot; the learner names their own escalation trap. An edition that entertains but fails these checks fails, whatever costume it wears.</div>
+    </div>
+    <div class="marginal"><span class="dia">&#9670;</span> Notice the seam line in the costumed editions. Every analogy is required to declare where it stops being the concept. Naming the seam is itself teaching, and it is how an edition stays medicine rather than entertainment.</div>
+
+    <div class="c-group-label" style="margin-top:36px;">The presenter, and the aside</div>
+    <p class="plain" style="margin-top:10px;">The edition has a face. <b>The Presenter</b> is the talking-head avatar that delivers each chunk and, when the student raises a hand, stops. A question opens <b>an aside</b>: a bounded conversation inside the chunk, played by the same presenter under the same rules. Its answers trace to the master and the deck or wear the enrichment tag, and the invariants ride along, compiled into the presenter's instructions, because the full studio cannot convene on every spoken turn. The Presenter is not a seat at the table. It is how the master is delivered.</p>
+    <p class="plain">When a question runs past the edge of the master, the presenter says so plainly, and the question is routed to a ledger on the desk. That ledger may be the most valuable artifact in the system: the question every third student asks is the master's best critic, and in Phase III it walks back upstream into the proof room.</p>
+    <div class="marginal"><span class="dia">&#9670;</span> Whether the presenter wears one persona per course, the faculty member's own licensed likeness, or a face the student chooses from an approved set is a governance call before it is a technical one. It is waiting for you in the open questions.</div>
+  </div>
+</section>
+
+<!-- ============ VI. BACKSTAGE ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 72 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(72 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">VI.</div><div class="mv-name">The Floor</div><span class="mv-bearing">Bearing 072&deg;</span></div>
+  <h2 class="sec-title">The same story,<br>drawn as a <em>system</em>.</h2>
+  <p class="lede">For the engineers in the audience. One pass through the machinery, top to bottom: what flows, what loops, what gets checked, and where the humans hold the controls.</p>
+
+  <div class="arch">
+
+    <div class="band">
+      <div class="band-label"><span>The Data Room</span><span class="bl-note">everything below is accountable to what sits here</span></div>
+      <div class="node-row">
+        <div class="node goldn"><b>The faculty deck</b>Slides, notes, readings. Phase I: the entire corpus.</div>
+        <div class="node ghost"><b>The course shell</b>Syllabus, modules, assessment structure, via LTI 1.3. Phase II.</div>
+        <div class="node ghost"><b>Learning signals</b>What real cohorts struggled with, fed back upstream. Phase III.</div>
+      </div>
+    </div>
+
+    <div class="flow">&#9660;<span class="fl-cap">deck-parser</span></div>
+
+    <div class="band">
+      <div class="band-label"><span>The Proofing Room</span><span class="bl-note">the loop runs until the checks pass, or a collision is worth surfacing</span></div>
+      <div class="node-row">
+        <div class="node draftn"><b>The Subject Expert</b>The discipline's expert for whatever this course teaches &mdash; drafts from the subject itself, chunk by chunk: concept, case, invariants.</div>
+        <div class="node draftn"><b>The Scriptwriter</b>Gives it a human voice: spoken word, narration timing, visual cues.</div>
+      </div>
+      <div class="flow">&#9660;<span class="fl-cap">working chunk</span></div>
+      <div class="node-row">
+        <div class="node evaln"><b>Learning Designer</b>alignment</div>
+        <div class="node evaln"><b>Learning Scientist</b>cognitive load</div>
+        <div class="node evaln"><b>Multimedia Designer</b>multimedia form</div>
+        <div class="node evaln"><b>Archivist</b>provenance</div>
+        <div class="node evaln"><b>Provocateur</b>engagement</div>
+      </div>
+      <div class="gate">
+        <span class="g-dia">&#9670;</span>
+        <span><b>The checks.</b> Fail: the chunk returns to the drafters with named gaps &#8634;</span>
+        <span><b>Pass:</b> the chunk proceeds &#9660;</span>
+      </div>
+      <div class="orch-bar">
+        <span><b>The Design Chair</b></span>
+        <span>Schedules the seats, runs the evaluators in parallel, keeps the collision-ledger, assembles the master. Coordination, never opinion.</span>
+      </div>
+    </div>
+
+    <div class="flow">&#9660;<span class="fl-cap">master-assembler &middot; trace-composer</span></div>
+
+    <div class="band">
+      <div class="band-label"><span>The House Review</span><span class="bl-note">UOWD's instructional designers &middot; human ID, before faculty</span></div>
+      <div class="node-row">
+        <div class="node"><b>UOWD's instructional designers</b>Vet the assembled master against the institution's standards, reading the room's trace rather than re-deriving it. Sign off, or send it back to proof &#8634;. Every master at launch; a sampled few once the room has earned it. The dial is theirs.</div>
+      </div>
+    </div>
+
+    <div class="flow">&#9660;<span class="fl-cap">vetted master</span></div>
+
+    <div class="band">
+      <div class="band-label"><span>The Master</span><span class="bl-note">canonical, versioned, faculty-owned</span></div>
+      <div class="band-split">
+        <div class="node goldn"><b>One master per course</b>Chunks with locked invariants: must land, must avoid, checkpoint. The reasoning trace and collision ledger ride along, every claim deck-traced or tagged enrichment.</div>
+        <div class="console-card fc"><b>The Desk &middot; faculty control plane</b>Approves, redirects, strikes enrichment, turns a voice up or down and sends the master back to proof &#8634;. The question-ledger from the asides lands here. Nothing ships unapproved.</div>
+      </div>
+    </div>
+
+    <div class="flow">&#9660;<span class="fl-cap">one master, many editions</span></div>
+
+    <div class="band">
+      <div class="band-label"><span>The Edition Plane</span><span class="bl-note">render-time, per student</span></div>
+      <div class="band-split">
+        <div class="node"><b>The renderer</b>Renders the approved master through the student's choices: lens, register, pace, and in Phase II, language. Every edition is re-checked against the chunk's invariants before it ships. An edition that entertains but fails its checks is regenerated, never delivered.</div>
+        <div class="console-card sc"><b>The Student Console &middot; edition plane</b>Shapes the edition, never the master. The skeleton is shared; the costume is theirs.</div>
+      </div>
+      <div class="node-row" style="margin-top:12px;">
+        <div class="node draftn"><b>The Presenter</b>The talking-head avatar that delivers the edition: face, voice, presence. It delivers the master. It never holds the desk.</div>
+        <div class="node goldn"><b>The Aside</b>Per-question loop. The student interrupts; the presenter answers inside the master and the deck, provenance-tagged, invariants compiled in. Questions beyond the master are named honestly and routed to the question-ledger on the desk.</div>
+      </div>
+      <div class="flow" style="padding-bottom:0;">&#9660;<span class="fl-cap">live edition &middot; aside &middot; checkpoint</span></div>
+    </div>
+
+    <div class="flow">&#9660;</div>
+
+    <div class="student-node">The student: <i>same skeleton, their own edition.</i></div>
+
+    <div class="arch-legend">
+      <span><span class="sw" style="background:rgba(124,47,42,0.25)"></span>drafts</span>
+      <span><span class="sw" style="background:rgba(140,124,88,0.3)"></span>evaluates</span>
+      <span><span class="sw" style="background:rgba(176,141,79,0.3)"></span>judgment &amp; invariants</span>
+      <span><span class="sw" style="background:rgba(40,35,27,0.7)"></span>coordination</span>
+      <span><span class="sw" style="border-style:dashed;background:transparent"></span>arrives in a later phase</span>
+    </div>
+  </div>
+
+  <div class="marginal"><span class="dia">&#9670;</span> Three loops, three paces. The proof loop runs once per master: expensive, slow, thorough. The edition check runs once per render: cheap, fast, unforgiving. The aside runs once per question: instant, held by the guardrails the master carries with it. Craft upstream, integrity downstream, honesty in the moment.</div>
+</section>
+
+<!-- ============ VII. THE PROGRAMME ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 108 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(108 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">VII.</div><div class="mv-name">The Programme</div><span class="mv-bearing">Bearing 108&deg;</span></div>
+  <h2 class="sec-title">The room gets <em>smarter</em><br>by phase.</h2>
+  <p class="lede">The product moves in your sequence: deck to script to video first, standalone first. What grows phase over phase is the data room the studio reasons from.</p>
+
+  <div class="phases">
+    <div class="phase">
+      <div class="ph-num">PHASE I &middot; NOW</div>
+      <div class="ph-title">The deck is the data room</div>
+      <div class="ph-desc">One faculty deck, one non-quantitative course, standalone. Chunks, scripts, faculty review, narrated video. Every claim traced or tagged. The harness does not need to be good yet. It needs to be honest.</div>
+      <div class="ph-room">The room holds: your slides</div>
+    </div>
+    <div class="phase">
+      <div class="ph-num">PHASE II</div>
+      <div class="ph-title">The course joins the room</div>
+      <div class="ph-desc">LTI 1.3 into Moodle brings the course shell: syllabus, prior modules, assessment structure. Live regional job-market context connects concepts to practice. Arabic arrives as an edition dimension, in step with the national agenda.</div>
+      <div class="ph-room">The room holds: the course, the region</div>
+    </div>
+    <div class="phase">
+      <div class="ph-num">PHASE III</div>
+      <div class="ph-title">The studio turns upstream</div>
+      <div class="ph-desc">The studio critiques the incoming deck itself against learning design principles before production begins, and learning signals from real cohorts feed the next proof. Your standards agenda, encoded and running.</div>
+      <div class="ph-room">The room holds: how students actually learned</div>
+    </div>
+  </div>
+
+  <div class="marginal"><span class="dia">&#9670;</span> The human-ID dial moves with the phases. Every master reviewed at launch; sampled as the room proves out; and by Phase III, your designers set the standards upstream rather than checking course by course. The room earns autonomy. The institution sets the pace.</div>
+
+  <div class="marginal"><span class="dia">&#9670;</span> One assumption to confirm: UOWD's Moodle appears to run on the parent university's platform, which would route LTI approval through central IT in Australia. If so, standalone-first is not a compromise. It is the only Phase I that does not wait on another continent.</div>
+</section>
+
+<!-- ============ VIII. LEFT TO YOUR JUDGMENT ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 144 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(144 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">VIII.</div><div class="mv-name">Where the Engine Stops</div><span class="mv-bearing">Bearing 144&deg;</span></div>
+  <h2 class="sec-title">Left to the <em>faculty's</em><br>judgment.</h2>
+  <p class="lede">The room is built to know what it does not own. These calls are surfaced, named, and handed over. Deliberately.</p>
+
+  <div class="judgment">
+    <div class="j-label"><span class="dia">&#9670;</span> Calls the studio deliberately leaves to the faculty member</div>
+    <div class="j-row"><div class="q">&ldquo;</div><div>Is it true? Disciplinary accuracy is your lane, named as yours in the interface. The room checks structure, alignment, and provenance. It does not pretend to outrank you on the discipline itself.</div></div>
+    <div class="j-row"><div class="q">&ldquo;</div><div>Is it taught the way you would teach it? Taste, emphasis, and the choice of example are teaching decisions. The room proposes; the desk is yours.</div></div>
+    <div class="j-row"><div class="q">&ldquo;</div><div>How bold should this chunk be? The Provocateur argues for the uncomfortable question. Whether your room is ready for it is a judgment no model should make.</div></div>
+    <div class="j-row"><div class="q">&ldquo;</div><div>What gets cut? A master is also made of what it leaves out. The omissions are yours to own, with the room's reasoning open in front of you.</div></div>
+  </div>
+</section>
+
+<!-- ============ IX. TAKING ROOT ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 180 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(180 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">IX.</div><div class="mv-name">Taking Root</div><span class="mv-bearing">Bearing 180&deg;</span></div>
+  <h2 class="sec-title">Built is not the same<br>as <em>adopted</em>.</h2>
+  <p class="lede">A course line no one teaches through is just infrastructure. Adoption is earned the way trust is &mdash; in a sequence, by proof, at the institution's pace.</p>
+
+  <div class="phases">
+    <div class="phase">
+      <div class="ph-num">PHASE 0 &middot; FOUNDATION</div>
+      <div class="ph-title">Name the coalition</div>
+      <div class="ph-desc">Sponsor secured, your instructional designers brought in as partners, and two or three willing faculty teaching the courses where the time returned is obvious. Agree what success looks like before a single course is built.</div>
+      <div class="ph-room">House Review: setting the bar</div>
+    </div>
+    <div class="phase">
+      <div class="ph-num">PHASE 1 &middot; LIGHTHOUSE</div>
+      <div class="ph-title">Prove it once, visibly</div>
+      <div class="ph-desc">A handful of volunteers, high-enrolment courses, heavy support, every master reviewed. The goal is not volume. It is undeniable evidence &mdash; and a respected name willing to say out loud that it worked.</div>
+      <div class="ph-room">House Review: every master</div>
+    </div>
+    <div class="phase">
+      <div class="ph-num">PHASE 2 &middot; EXPAND</div>
+      <div class="ph-title">Let proof spread</div>
+      <div class="ph-desc">The early majority, pulled by their colleagues' results rather than pushed by mandate. Self-serve onboarding, Moodle integration, and real recognition for taking part.</div>
+      <div class="ph-room">House Review: sampled</div>
+    </div>
+    <div class="phase">
+      <div class="ph-num">PHASE 3 &middot; EMBED</div>
+      <div class="ph-title">Make it the path</div>
+      <div class="ph-desc">For the right course types, the studio becomes the default route inside programme development, and your designers set standards upstream. Adoption is no longer a project. It is how courses are made.</div>
+      <div class="ph-room">House Review: standards upstream</div>
+    </div>
+  </div>
+
+  <div class="marginal"><span class="dia">&#9670;</span> The non-negotiable underneath all of it: the faculty member authors and approves, and nothing reaches a student unvetted. The day adoption feels like replacement, it stops. Ownership is not a courtesy here &mdash; it is the strategy.</div>
+
+  <div class="marginal"><span class="dia">&#9670;</span> Your instructional designers are the engine, not a casualty. The House Review makes them the quality authority over the whole line, so they become its strongest advocates inside the building. Win them first.</div>
+</section>
+
+<!-- ============ X. OPEN QUESTIONS ============ -->
+<section class="wrap">
+  <div class="movement"><span class="rose-mini"><svg viewBox="0 0 64 64" width="42" height="42" role="img" aria-label="Bearing 216 degrees"><circle cx="32" cy="32" r="27" fill="#F2ECDD" stroke="#8A6C39" stroke-width="1.1"/><circle cx="32" cy="32" r="27" fill="none" stroke="#B08D4F" stroke-width="0.5"/><line x1="32.0" y1="8.0" x2="32.0" y2="5.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="15.0" x2="51.1" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><line x1="56.0" y1="32.0" x2="59.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="49.0" y1="49.0" x2="51.1" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="32.0" y1="56.0" x2="32.0" y2="59.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="49.0" x2="12.9" y2="51.1" stroke="#8A6C39" stroke-width="0.7"/><line x1="8.0" y1="32.0" x2="5.0" y2="32.0" stroke="#8A6C39" stroke-width="1.1"/><line x1="15.0" y1="15.0" x2="12.9" y2="12.9" stroke="#8A6C39" stroke-width="0.7"/><circle cx="32" cy="9.6" r="1.6" fill="#7C2F2A"/><g transform="rotate(216 32 32)"><polygon points="32,11 29,32 35,32" fill="#7C2F2A" stroke="#28231B" stroke-width="0.5"/><polygon points="32,53 29,32 35,32" fill="#3A322A" stroke="#28231B" stroke-width="0.5"/></g><circle cx="32" cy="32" r="3" fill="#B08D4F" stroke="#28231B" stroke-width="0.5"/><circle cx="32" cy="32" r="1" fill="#28231B"/></svg></span><div class="mv-num">X.</div><div class="mv-name">For Your Reaction</div><span class="mv-bearing">Bearing 216&deg;</span></div>
+  <h2 class="sec-title">What we are <em>not sure</em> about,<br>on purpose.</h2>
+  <p class="lede">A draft that cannot be argued with is not a draft. These are the questions we want this document to start.</p>
+
+  <div class="oq">
+    <div class="oq-row"><div class="oq-num">i.</div><div><div class="oq-q">Is the craft seat's first tenant right?</div><div class="oq-sub">We propose a Management mind, in your own discipline, where your eye is sharpest. Which course, and whose deck, should sit first?</div></div></div>
+    <div class="oq-row"><div class="oq-num">ii.</div><div><div class="oq-q">Does inclusion hold a seat at the table?</div><div class="oq-sub">Accessibility and the multilingual learner: a voice of their own, or a dimension of every edition? We lean toward a seat. Held for your reaction.</div></div></div>
+    <div class="oq-row"><div class="oq-num">iii.</div><div><div class="oq-q">Where does the room sit first?</div><div class="oq-sub">We have it drafting and critiquing at the script stage, moving upstream to the deck in Phase III. Is that the right order of arrival?</div></div></div>
+    <div class="oq-row"><div class="oq-num">iv.</div><div><div class="oq-q">Where is Moodle administered?</div><div class="oq-sub">Dubai or Australia. The answer sets the LTI approval path and the Phase II timeline.</div></div></div>
+    <div class="oq-row"><div class="oq-num">v.</div><div><div class="oq-q">What must the pilot prove?</div><div class="oq-sub">Hours returned to faculty, completion, satisfaction, or something you watch that we have not named.</div></div></div>
+    <div class="oq-row"><div class="oq-num">vi.</div><div><div class="oq-q">Does assessment eventually join the studio?</div><div class="oq-sub">Your public argument is that assessment must be reinvented toward demonstrated competence. Is that a future seat in this room, or a different room entirely?</div></div></div>
+    <div class="oq-row"><div class="oq-num">vii.</div><div><div class="oq-q">Whose face holds the lectern?</div><div class="oq-sub">One persona per course, the faculty member's own licensed likeness, or a face the student chooses from an approved set. Consent, identity, and institutional policy travel with the answer.</div></div></div>
+    <div class="oq-row"><div class="oq-num">viii.</div><div><div class="oq-q">How far may an aside wander?</div><div class="oq-sub">The presenter answers inside the master and the deck. The latitude beyond that edge, and the moment it must say ask your professor, is a dial for you to set, not for us to assume.</div></div></div>
+    <div class="oq-row"><div class="oq-num">ix.</div><div><div class="oq-q">Does the house review come before faculty, or beside them?</div><div class="oq-sub">We default to your instructional designers vetting the master first, then faculty. Some institutions may want faculty's eyes first, or both at once. The order of operations is yours to set.</div></div></div>
+    <div class="oq-row"><div class="oq-num">x.</div><div><div class="oq-q">How hard do we push &mdash; invited, or expected?</div><div class="oq-sub">Faculty fear of replacement is the real adoption risk, and the cure is starting with volunteers. But for some course types there is a point where invitation should become the default. How fast to cross from opt-in to expected is a cultural call only you can make.</div></div></div>
+  </div>
+</section>
+
+<div class="coda wrap">
+  <p class="coda-line">Better lectures are nice.<br><em>Better teaching, made by teachers,</em> is the institution.</p>
+</div>
+
+<footer>Aurica &middot; The Studio &middot; A Working Draft</footer>
+
+<script>
+  var state = { lens: 'straight', forte: false };
+
+  var editions = {
+    straight: {
+      base: "A manager has spent eight months and most of a budget on a system that is failing. The choice ahead feels financial and is actually psychological: the money is gone whether the project lives or dies. What escalates commitment is not the arithmetic but the identity. To stop is to admit the original decision was wrong, and so the spending continues, protecting the decider rather than the decision. Organizations that escape this trap separate the two, so that killing a project is not killing a career.",
+      seam: "",
+      beat: "Open on the uncomfortable version: everyone in this room has finished a film they were not enjoying. Why?"
+    },
+    megaproject: {
+      base: "A developer is years and billions into a waterfront tower the market has already turned against. Every floor built feels like a reason to build the next, and not one of them will fill the empty ones below. To stop is to carve the loss into the skyline and admit the launch was wrong, so the cranes keep turning, protecting the decision rather than the return. That is escalation of commitment: the money sank the day the market shifted, and the only real question is the next floor, not the last.",
+      seam: "Where the tower ends: a building is public and permanent, so walking away looks like a monument to failure. A quiet line on a balance sheet is far easier to kill, which is exactly why some commitments stay hidden.",
+      beat: "Ask the room: name a project everyone can see is finished in everything but the admission."
+    },
+    family: {
+      base: "A family conglomerate keeps funding a venture the founder launched a decade ago, long after the numbers turned. To close it is not to cut a loss; it is to tell the founder, across the dinner table, that he was wrong. So the capital keeps flowing, defending the name rather than the ledger. That is escalation of commitment: the cost is sunk whether the venture lives or dies, and the next investment is held hostage by the last one.",
+      seam: "Where the family ends: a public company has a board that can force the reckoning. A family firm answers to loyalty and legacy, which is why the hardest commitments to exit are the ones tangled up with who we are.",
+      beat: "Start with the provocation: name a venture still funded because ending it would cost someone face, not money."
+    }
+  };
+
+  var directives = {
+    standard: "<b>Directive to the room:</b> run the standard reading. Concept, mechanism, example, checkpoint.",
+    forte: "<b>Directive to the room:</b> the Provocateur is turned up. The edition must open or close on a question that makes the room slightly uncomfortable."
+  };
+
+  function render(){
+    var stage = document.getElementById('stage');
+    var body = document.getElementById('st-body');
+    stage.classList.add('swap');
+    setTimeout(function(){
+      var p = editions[state.lens];
+      var html = p.base;
+      if(p.seam){ html += '<span class="seam">' + p.seam + '</span>'; }
+      if(state.forte){ html += '<span class="beat">' + p.beat + '</span>'; }
+      body.innerHTML = html;
+      document.getElementById('directive').innerHTML = state.forte ? directives.forte : directives.standard;
+      stage.classList.remove('swap');
+    }, 220);
+  }
+
+  function setLens(l){
+    state.lens = l;
+    ['straight','megaproject','family'].forEach(function(k){
+      document.getElementById('lens-' + k).setAttribute('aria-pressed', String(k === l));
+    });
+    render();
+  }
+
+  function setForte(f){
+    state.forte = f;
+    document.getElementById('chip-std').setAttribute('aria-pressed', String(!f));
+    document.getElementById('chip-forte').setAttribute('aria-pressed', String(f));
+    render();
+  }
+
+  render();
+</script>
+</body>
+</html>

@@ -21,6 +21,25 @@ function TrayItem({ item, onAction }) {
   )
 }
 
+function WeekTimeline({ week, of }) {
+  return (
+    <div className="wk-timeline" aria-label={`Week ${week} of ${of}`}>
+      <div className="wk-ticks" aria-hidden="true">
+        {Array.from({ length: of }, (_, i) => {
+          const n = i + 1
+          const state = n < week ? 'past' : n === week ? 'now' : 'future'
+          return (
+            <span key={n} className={`wk-tick ${state}`}>
+              {n === week && <span className="wk-now-dia">◆</span>}
+            </span>
+          )
+        })}
+      </div>
+      <div className="wk-cap">Week {week} <span>of {of}</span></div>
+    </div>
+  )
+}
+
 function DeskBell({ struck }) {
   const [roomOpen, setRoomOpen] = useState(false)
   const [ledgerOpen, setLedgerOpen] = useState(false)
@@ -103,7 +122,7 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
       <div className="screen on">
         <div className="desk">
           <header className={beat(1).trim()}>
-            <h1 className="sc-title">Your desk.</h1>
+            <h1 className="sc-title">Your desk<span className="title-dot">.</span></h1>
           </header>
 
           {seated ? (
@@ -150,8 +169,11 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
     <div className="screen on">
       <div className="desk">
         <header className={beat(1).trim()}>
-          <h1 className="sc-title">Your desk.</h1>
-          <div className="cr-line"><b>{d.course.code}</b> &middot; {d.course.title} &middot; Week {d.course.week} of {d.course.of}</div>
+          <div className="desk-head-row">
+            <h1 className="sc-title">Your desk<span className="title-dot">.</span></h1>
+            <WeekTimeline week={d.course.week} of={d.course.of} />
+          </div>
+          <div className="cr-line"><b>{d.course.code}</b> &middot; {d.course.title}</div>
           <div className="cr-standing">{d.course.status}</div>
           <div className="rule-double" aria-hidden="true"></div>
         </header>
