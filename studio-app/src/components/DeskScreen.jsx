@@ -173,7 +173,7 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
             <h1 className="sc-title">Your desk<span className="title-dot">.</span></h1>
             <WeekTimeline week={d.course.week} of={d.course.of} />
           </div>
-          <div className="cr-line"><b>{d.course.code}</b> &middot; {d.course.title}</div>
+          <div className="cr-line"><b>{d.course.code}</b> &middot; {d.course.title}<button className="cr-settings-link" onClick={() => alert('Course settings')}>Course settings</button></div>
           <div className="cr-standing">{d.course.status}</div>
           <div className="rule-double" aria-hidden="true"></div>
         </header>

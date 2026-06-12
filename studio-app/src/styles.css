@@ -649,6 +649,8 @@
   .wk-cap span{color:var(--ink-soft);}
   .cr-line{margin-top:30px;font-family:var(--mono);font-size:12px;letter-spacing:0.05em;color:var(--ink-soft);}
   .cr-line b{font-weight:500;color:var(--ink);}
+  .cr-settings-link{background:none;border:none;padding:0;margin-left:14px;font-family:var(--mono);font-size:11px;letter-spacing:0.05em;color:var(--gold-deep);text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
+  .cr-settings-link:hover{color:var(--terracotta);}
   .cr-standing{font-family:'Cormorant Garamond',serif;font-size:19.5px;color:var(--ink);margin-top:8px;line-height:1.5;}
   .rule-double{margin-top:26px;height:5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 
