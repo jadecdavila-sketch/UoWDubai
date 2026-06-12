@@ -553,13 +553,13 @@
   .rlabel{display:block;font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;color:var(--sage-deep);margin-bottom:5px;}
 
   /* ===== podium record ===== */
-  .record{max-width:640px;margin:0 auto;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);}
-  .rec-row{display:flex;gap:14px;padding:15px 22px;border-bottom:1px solid var(--line);align-items:baseline;text-align:left;}
+  .record{max-width:640px;margin:0 auto;border:1px solid rgba(255,255,255,0.08);background:var(--ink);box-shadow:var(--shadow);}
+  .rec-row{display:flex;gap:14px;padding:15px 22px;border-bottom:1px solid rgba(255,255,255,0.07);align-items:baseline;text-align:left;}
   .rec-row:last-child{border-bottom:none;}
-  .rec-row .q{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--gold);line-height:1;flex:none;}
-  .rec-row .rk{font-size:13.5px;color:var(--ink-soft);}
-  .rec-row .rk b{color:var(--ink);font-weight:600;}
-  .record-foot{max-width:640px;margin:12px auto 0;font-size:11px;color:rgba(66,80,106,0.6);text-align:center;letter-spacing:0.06em;}
+  .rec-row .q{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--mustard);line-height:1;flex:none;}
+  .rec-row .rk{font-size:13.5px;color:rgba(237,232,221,0.85);}
+  .rec-row .rk b{color:var(--paper);font-weight:600;}
+  .record-foot{max-width:640px;margin:12px auto 0;font-size:11px;color:rgba(237,232,221,0.4);text-align:center;letter-spacing:0.06em;}
 
   /* ===== student theme picker ===== */
   .sub-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;}
