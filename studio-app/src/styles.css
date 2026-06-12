@@ -635,19 +635,6 @@
   .beat.b4{animation-delay:.21s;}
 
   /* masthead: three voices, then the strongest rule on the page */
-  .desk-title-row{display:flex;align-items:center;gap:16px;}
-  .desk-thumb{
-    width:clamp(64px,9.3vw,82px);height:clamp(64px,9.3vw,82px);
-    object-fit:cover;flex:none;
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
-      linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
-      linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
-    mask-composite: intersect;
-  }
   .desk .sc-title{font-size:clamp(34px,5.2vw,48px);line-height:1.06;}
   .cr-line{margin-top:30px;font-family:var(--mono);font-size:12px;letter-spacing:0.05em;color:var(--ink-soft);}
   .cr-line b{font-weight:500;color:var(--ink);}

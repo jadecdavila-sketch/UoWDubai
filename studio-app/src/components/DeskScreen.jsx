@@ -103,10 +103,7 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
       <div className="screen on">
         <div className="desk">
           <header className={beat(1).trim()}>
-            <div className="desk-title-row">
-              <img className="desk-thumb" src={`${import.meta.env.BASE_URL}assets/theDesk.png`} alt="" aria-hidden="true" />
-              <h1 className="sc-title">Your desk.</h1>
-            </div>
+            <h1 className="sc-title">Your desk.</h1>
           </header>
 
           {seated ? (
@@ -153,10 +150,7 @@ export default function DeskScreen({ onHandDeck, onOpenRecord, struck }) {
     <div className="screen on">
       <div className="desk">
         <header className={beat(1).trim()}>
-          <div className="desk-title-row">
-            <img className="desk-thumb" src={`${import.meta.env.BASE_URL}assets/theDesk.png`} alt="" aria-hidden="true" />
-            <h1 className="sc-title">Your desk.</h1>
-          </div>
+          <h1 className="sc-title">Your desk.</h1>
           <div className="cr-line"><b>{d.course.code}</b> &middot; {d.course.title} &middot; Week {d.course.week} of {d.course.of}</div>
           <div className="cr-standing">{d.course.status}</div>
           <div className="rule-double" aria-hidden="true"></div>
